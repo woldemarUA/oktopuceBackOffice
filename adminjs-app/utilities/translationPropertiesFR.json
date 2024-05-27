@@ -1,0 +1,15 @@
+{
+    "first_name": "Prénom",
+    "last_name": "Nom de famille",
+    "contact_name": "Nom du contact",
+    "type_id": "Type ID",
+    "address": "Adresse",
+    "postal_code": "Code postal",
+    "city": "Ville",
+    "created_at": "Créé à",
+    "phone_number": "Numéro de téléphone",
+    "email": "Email",
+    "updated_at": "Mis à jour à",
+    "id": "ID",
+    "type_name": "Nom du type"
+}
