@@ -11,14 +11,24 @@ EquipmentLocationsModel.init(
     },
     id: {
       autoIncrement: true,
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       allowNull: false,
       primaryKey: true,
+    },
+    created_at: {
+      type: DataTypes.DATE, // Reflecting TIMESTAMP
+      allowNull: true,
+    },
+    updated_at: {
+      type: DataTypes.DATE, // Reflecting TIMESTAMP
+      allowNull: true,
     },
   },
   {
     sequelize,
     tableName: 'equipment_locations',
-    timestamps: false,
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
   }
 );

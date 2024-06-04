@@ -1,0 +1,13 @@
+/* Default flex direction is row */
+.flex-container {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  /* Flex direction changes to column for tablets and smaller screens */
+  @media (max-width: 768px) {
+    .flex-container {
+      flex-direction: column;
+    }
+  }
+  

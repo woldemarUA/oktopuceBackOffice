@@ -66,7 +66,10 @@
     "appVersion": "App : {{version}}",
     "dashboard": "Tableau de bord",
     "clients": "Clients",
-    "client_types": "Type de client"
+    "Clients": "Clients",
+    "client_types": "Type de client",
+    "Equipments Configuration": "Equipments Configuration",
+    "equipment_brands": "Equipment Brands"
   },
   "properties": {
     "length": "Longueur",

@@ -9,7 +9,10 @@ import AdminJS from 'adminjs';
 import frenchTranslations from './adminjs-app/utilities/translationFR.json' assert { type: 'json' };
 import Plugin from '@adminjs/express';
 
-import sequelize from './adminjs-app/db/db_connector.mjs';
+import { componentLoader } from './adminjs-app/setUp/componentLoader.mjs';
+import { Components } from './adminjs-app/components/components.mjs';
+
+// import sequelize from './adminjs-app/db/db_connector.mjs';
 
 // importation des resources
 
@@ -29,28 +32,40 @@ const server = createServer(app);
 app.get('/backoffice', (req, res) => {
   res.send(`Hello Woldemar`);
 });
-async function startServer() {
+
+// export const componentLoader = new ComponentLoader();
+async function run() {
   const adminOptions = {
-    databases: [sequelize],
-    resources: resourcesAll,
+    // databases: [sequelize],
+    resources: await resourcesAll(),
+    // resources: [...resourcesAll, EquipmentsResource()],
   };
 
   // admin start
   const admin = new AdminJS({
-    databases: [sequelize],
+    // databases: [sequelize],
     ...adminOptions,
+    componentLoader,
     rootPath: '/',
+    dashboard: {
+      component: Components.DashboardCard,
+    },
     branding: {
       companyName: 'OKTOPUCE',
+      logo: 'https://oktopuce.com/build/images/logo.5fd235f1.svg',
+      softwareBrothers: false,
+      withMadeWithLove: false,
     },
     locale: {
+      debug: false,
       language: 'fr',
       availableLanguages: ['en', 'pl', 'fr', 'ua', 'de', 'es', 'it'],
-      localeDetection: true,
+      localeDetection: false,
       translations: {
         fr: frenchTranslations,
       },
     },
+
     // },
     // loginPath and logoutPath:
     // Example of adding authentication:
@@ -78,4 +93,4 @@ async function startServer() {
   }
 }
 
-startServer();
+await run();

@@ -1,7 +1,11 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../db_connector.mjs';
 
-export class Clients extends Model {}
+export class Clients extends Model {
+  getFullname() {
+    return [this.first_name, this.last_name].join(' ');
+  }
+}
 
 Clients.init(
   {
@@ -59,6 +63,8 @@ Clients.init(
     sequelize,
     modelName: 'Clients',
     tableName: 'clients',
-    timestamps: false, // As we are manually handling 'created_at' and 'updated_at'
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
   }
 );

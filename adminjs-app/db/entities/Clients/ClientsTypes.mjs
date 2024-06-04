@@ -27,6 +27,8 @@ ClientTypes.init(
     sequelize,
     modelName: 'ClientTypes',
     tableName: 'client_types',
-    timestamps: false, // As we are manually handling 'created_at' and 'updated_at'
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
   }
 );

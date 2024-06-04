@@ -48,11 +48,23 @@ SitesModel.init(
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: DataTypes.NOW,
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: DataTypes.NOW,
+    },
   },
   {
     sequelize,
     tableName: 'sites',
     modelName: 'SitesModel',
-    timestamps: true,
+    timestamps: true, // Enables timestamps
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
   }
 );

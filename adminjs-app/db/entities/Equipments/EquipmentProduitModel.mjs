@@ -1,21 +1,17 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../db_connector.mjs';
 
-export class EquipmentGasTypesModel extends Model {}
+export class EquipmentProduitModel extends Model {}
 
-EquipmentGasTypesModel.init(
+EquipmentProduitModel.init(
   {
     id: {
       autoIncrement: true,
-      type: DataTypes.BIGINT.UNSIGNED,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
     },
     name: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-    },
-    global_warming_potential: {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
@@ -30,8 +26,8 @@ EquipmentGasTypesModel.init(
   },
   {
     sequelize,
-    tableName: 'gas_types',
-    modelName: 'EquipmentGasTypesModel',
+    modelName: 'EquipmentProduitModel',
+    tableName: 'equipment_produit',
     timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',

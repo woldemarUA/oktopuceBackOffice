@@ -1,18 +1,11 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../db_connector.mjs';
 
-export class EquipmentTypesModel extends Model {
-  static async getEndroitIdsAll() {
-    const res = await this.findAll({
-      attributes: ['endroit_id'],
-    });
-    return new Set(res.map((r) => r.endroit_id));
-  }
-
-  static async isFinalite() {
+export class EquipmentEndroitModel extends Model {
+  static async is_location() {
     const res = await this.findAll({
       attributes: ['id'],
-      where: { is_finalite: true },
+      where: { is_location: true },
     });
 
     const records = res.map((r) => r.dataValues.id);
@@ -21,30 +14,30 @@ export class EquipmentTypesModel extends Model {
   }
 }
 
-EquipmentTypesModel.init(
+EquipmentEndroitModel.init(
   {
     id: {
       autoIncrement: true,
-      type: DataTypes.BIGINT.UNSIGNED,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
     },
+    produit_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'equipment_produit',
+        key: 'id',
+      },
+    },
+
     name: {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
-    is_finalite: {
+    is_location: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
-    },
-
-    endroit_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'equipment_endroit',
-        key: 'id',
-      },
     },
     created_at: {
       type: DataTypes.DATE, // Reflecting TIMESTAMP
@@ -57,8 +50,8 @@ EquipmentTypesModel.init(
   },
   {
     sequelize,
-    modelName: 'EquipmentTypesModel',
-    tableName: 'equipment_types',
+    modelName: 'EquipmentEndroitModel',
+    tableName: 'equipment_endroit',
     timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',

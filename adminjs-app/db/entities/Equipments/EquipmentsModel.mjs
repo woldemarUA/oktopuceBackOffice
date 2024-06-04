@@ -27,9 +27,29 @@ EquipmentsModel.init(
         key: 'id',
       },
     },
+    produit_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'equipment_produit',
+        key: 'id',
+      },
+    },
+    endroit_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'equipment_endroit',
+        key: 'id',
+      },
+    },
     location_id: {
       type: DataTypes.BIGINT.UNSIGNED,
-      allowNull: false,
+      allowNull: true,
+      references: {
+        model: 'equipment_locations',
+        key: 'id',
+      },
     },
     nfc_tag_id: {
       type: DataTypes.BIGINT.UNSIGNED,
@@ -49,7 +69,7 @@ EquipmentsModel.init(
     },
     equipment_type_id: {
       type: DataTypes.BIGINT.UNSIGNED,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'equipment_types',
         key: 'id',
@@ -101,7 +121,7 @@ EquipmentsModel.init(
     },
     has_leak_detection: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
       defaultValue: 0,
     },
     last_leak_detection: {
@@ -140,11 +160,43 @@ EquipmentsModel.init(
         key: 'id',
       },
     },
+    finalites: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return {
+          is_plancher_chauffant: this.getDataValue('is_plancher_chauffant'),
+          is_plancher_raffraichssant: this.getDataValue(
+            'is_plancher_raffraichssant'
+          ),
+          is_radiateurs: this.getDataValue('is_radiateurs'),
+          ventilo_convecteurs: this.getDataValue('ventilo_convecteurs'),
+        };
+      },
+      set(value) {
+        this.setDataValue('is_plancher_chauffant', value.is_plancher_chauffant);
+        this.setDataValue(
+          'is_plancher_raffraichssant',
+          value.is_plancher_raffraichssant
+        );
+        this.setDataValue('is_radiateurs', value.is_radiateurs);
+        this.setDataValue('ventilo_convecteurs', value.ventilo_convecteurs);
+      },
+    },
+    created_at: {
+      type: DataTypes.DATE, // Reflecting TIMESTAMP
+      allowNull: true,
+    },
+    updated_at: {
+      type: DataTypes.DATE, // Reflecting TIMESTAMP
+      allowNull: true,
+    },
   },
   {
     sequelize,
     tableName: 'equipments',
     modelName: 'EquipmentModel',
-    timestamps: false,
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
   }
 );

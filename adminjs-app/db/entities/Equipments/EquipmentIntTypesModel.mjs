@@ -15,11 +15,21 @@ EquipmentIntTypesModel.init(
       type: DataTypes.STRING(255),
       allowNull: false,
     },
+    created_at: {
+      type: DataTypes.DATE, // Reflecting TIMESTAMP
+      allowNull: true,
+    },
+    updated_at: {
+      type: DataTypes.DATE, // Reflecting TIMESTAMP
+      allowNull: true,
+    },
   },
   {
     sequelize,
     modelName: 'EquipmentIntTypesModels',
     tableName: 'equipment_int_types',
-    timestamps: false,
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
   }
 );
