@@ -1,4 +1,4 @@
-const equipmentFormLayout = [
+const equipmentShowLayout = [
   [
     { mx: 'auto' },
     [
@@ -100,6 +100,7 @@ const equipmentFormLayout = [
     ],
   ],
   [
+    ['@H6', { children: 'Emplacement' }],
     [
       {
         flexDirection: ['column', 'row'],
@@ -108,7 +109,20 @@ const equipmentFormLayout = [
       },
       [
         [
-          'location_data',
+          'location_id',
+          {
+            flexGrow: 1,
+            mb: '0.1rem',
+            mr: '0.5rem',
+
+            width: 'auto',
+            // minWidth: 'fit-content',
+          },
+        ],
+      ],
+      [
+        [
+          'location_precision',
           {
             flexGrow: 1,
             mb: '0.1rem',
@@ -138,26 +152,7 @@ const equipmentFormLayout = [
     ['@H4', { children: 'Information' }],
 
     // Information range
-    // [
-    //   {
-    //     flexDirection: ['column', 'row'],
-    //     flex: true,
-    //     justifyContent: 'space-between',
-    //   },
-    //   [
-    //     [
-    //       'location_data',
-    //       {
-    //         flexGrow: 1,
-    //         mb: '0.1rem',
-    //         mr: '0.5rem',
 
-    //         width: 'auto',
-    //         // minWidth: 'fit-content',
-    //       },
-    //     ],
-    //   ],
-    // ],
     // Brand range
     [
       {
@@ -263,4 +258,4 @@ const equipmentFormLayout = [
   ],
 ];
 
-export default equipmentFormLayout;
+export default equipmentShowLayout;

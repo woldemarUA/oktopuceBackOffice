@@ -40,12 +40,13 @@ const CustomSelect = ({ property, record, onChange }) => {
   useEffect(() => {
     setParentField(property.props.parent);
     setParentValue(record.params[property.props.parent]);
-  }, [record.params, property.props.parent]);
+  }, [record.params]); //, property.props.parent
 
   useEffect(() => {
     setOptions([]);
     setSelectedOptionValue(null);
-    record.params[property.name] = '';
+    record.params[property.name] = null;
+
     fetchOptions();
   }, [parentField, parentValue]);
 
@@ -66,9 +67,7 @@ const CustomSelect = ({ property, record, onChange }) => {
         </FormGroup>
       )} */}
       <FormGroup error={''}>
-        <Label htmlFor={property.name}>
-          {property.props.label} {property.name}
-        </Label>
+        <Label htmlFor={property.name}>{property.props.label}</Label>
         <Select
           options={options}
           onChange={(selectedOption) => handleChange(selectedOption)}

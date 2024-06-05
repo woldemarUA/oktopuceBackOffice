@@ -19,6 +19,7 @@ import { Components } from '../../components/components.mjs';
 
 // import form config
 import equipmentFormLayout from '../../actions/Equipment/equipmentFormLayout.mjs';
+import equipmentShowLayout from '../../actions/Equipment/equipmentShowLayout.mjs';
 
 import {
   listVisibility,
@@ -35,31 +36,61 @@ export const EquipmentsResource = async () => {
     features: [importExportFeature({ componentLoader })],
 
     options: {
+      listProperties: [
+        'site_id',
+        'produit_id',
+        'endroit_id',
+        'equipment_type_id',
+      ],
+      // filterProperties: ['id', 'name', 'createdAt'],
+      // editProperties: ['id', 'name', 'bio', 'createdAt'],
+      // showProperties: ['finalites'],
       navigation: equipmentNavigation,
       actions: {
         new: {
           layout: equipmentFormLayout,
         },
+        edit: {
+          layout: equipmentFormLayout,
+        },
+        show: {
+          layout: equipmentShowLayout,
+        },
       },
       properties: {
-        site_id: { position: 1, label: 'Quel site ' },
+        site_id: { position: 1, isTitle: true },
+
         produit_id: {
           position: 2,
+          isTitle: true,
+
+          components: {
+            edit: Components.SingleSelect,
+          },
+          props: {
+            dependant: 'endroit_id',
+            label: 'Sur quel produit est installé le puce?',
+            tableName: 'equipment_produit',
+            isVisible: true,
+          },
         },
         endroit_id: {
           position: 3,
+          isTitle: true,
 
           components: {
             edit: Components.CustomSelect,
           },
           props: {
             parent: 'produit_id',
+            dependant: 'equipment_type_id',
             label: 'A quel endroit?',
             tableName: 'equipment_endroit',
           },
         },
         equipment_type_id: {
           position: 4,
+
           components: {
             edit: Components.CustomSelect,
           },
@@ -68,6 +99,7 @@ export const EquipmentsResource = async () => {
             parent: 'endroit_id',
             label: "Type d'unité ",
             tableName: 'equipment_types',
+            dependant: 'finalites',
           },
         },
         location_data: {
@@ -82,7 +114,10 @@ export const EquipmentsResource = async () => {
               value: 'location_precision_checkBox',
               label: 'Précision',
             },
-            textField: { value: 'location_precision', label: '' },
+            textField: {
+              value: 'location_precision',
+              label: "details d'emplacement",
+            },
           },
         },
 
@@ -102,8 +137,44 @@ export const EquipmentsResource = async () => {
 
           props: {
             parent: 'equipment_type_id',
-            isVisible: await EquipmentTypesModel.isFinalite(),
+            isVisible: await EquipmentTypesModel.isOption('is_finalite'),
+            // isVisible: await EquipmentTypesModel.isFinalite(),
             label: 'Finalite(s)',
+          },
+        },
+
+        unite_exterieur_type_id: {
+          components: {
+            edit: Components.SingleSelect,
+          },
+          props: {
+            isVisible: await EquipmentTypesModel.isOption('is_ext'),
+            tableName: 'equipment_ext_types',
+            label: 'Type',
+            parent: 'equipment_type_id',
+          },
+        },
+        unite_interieur_type_id: {
+          components: {
+            edit: Components.SingleSelect,
+          },
+          props: {
+            isVisible: await EquipmentTypesModel.isOption('is_int'),
+            tableName: 'equipment_int_types',
+            label: 'Type',
+            parent: 'equipment_type_id',
+          },
+        },
+        gas_params: {
+          components: {
+            edit: Components.GasParamsComponent,
+          },
+          props: {
+            isVisible: await EquipmentTypesModel.isOption('is_gas'),
+            tableName: 'gas_types',
+            label: 'Gas Parametrage',
+            parent: 'equipment_type_id',
+            potentiel: (await EquipmentGasTypesModel.getPotentiel()).potentiel,
           },
         },
       },

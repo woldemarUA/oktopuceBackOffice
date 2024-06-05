@@ -9,6 +9,10 @@ import CustomCheckBox from '../adminjs-app/components/Equipment/CustomCheckBox'
 AdminJS.UserComponents.CustomCheckBox = CustomCheckBox
 import LocationInfoComponent from '../adminjs-app/components/Equipment/LocationInfoComponent'
 AdminJS.UserComponents.LocationInfoComponent = LocationInfoComponent
+import SingleSelect from '../adminjs-app/components/Equipment/SingleSelect'
+AdminJS.UserComponents.SingleSelect = SingleSelect
+import GasParamsComponent from '../adminjs-app/components/Equipment/GasParamsComponent'
+AdminJS.UserComponents.GasParamsComponent = GasParamsComponent
 import ParentComponent from '../adminjs-app/components/Equipment/ParentComponent'
 AdminJS.UserComponents.ParentComponent = ParentComponent
 import ImportComponent from '../node_modules/@adminjs/import-export/lib/components/ImportComponent'

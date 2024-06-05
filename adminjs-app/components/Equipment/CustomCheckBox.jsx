@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from 'react';
 
-import { Box, Label, CheckBox, H6 } from '@adminjs/design-system';
+import { H6 } from '@adminjs/design-system'; //Box, Label,
+
+import { Label, CheckboxGrid, Box } from '../styled-componens/CheckBoxGrid.mjs';
+import ToggleSwitch from '../styled-componens/ToggleSwitch';
 
 const CustomCheckBox = (props) => {
   const { onChange, record, property, resource } = props;
   const checkBoxes = property.availableValues;
-  const [isVisible, setIsVisible] = useState(false);
-  const [checked, setChecked] = useState(
-    checkBoxes.reduce((acc, check) => {
-      acc[check.value] = false;
-      return acc;
-    }, {})
+  const [parentValue, setParentValue] = useState(
+    record.params[property.props.parent]
   );
+  const initialState = checkBoxes.reduce((acc, check) => {
+    acc[check.value] = false;
+    return acc;
+  }, {});
+
+  const [isVisible, setIsVisible] = useState(
+    property.props.isVisible.includes(record.params[property.props.parent])
+  );
+
+  const [checked, setChecked] = useState(initialState);
 
   const handleChange = (field) => {
     setChecked((prevState) => ({
@@ -21,34 +30,51 @@ const CustomCheckBox = (props) => {
   };
 
   useEffect(() => {
-    if (record.params[property.props.parent]) {
-      setIsVisible(
-        property.props.isVisible.includes(record.params[property.props.parent])
-      );
-    }
-  }, [record.params[property.props.parent]]);
+    // if (record.params[property.props.parent]) {
+    //   // setIsVisible(
+    //   //   property.props.isVisible.includes(record.params[property.props.parent])
+    //   // );
+
+    // }
+    const newVisibility = property.props.isVisible.includes(
+      record.params[property.props.parent]
+    );
+    setIsVisible(newVisibility);
+    // console.log('Visibility updated to:', newVisibility);
+  }, [record.params[property.props.parent]]); // record.params[property.props.parent]  JSON.stringify(record.params[property.props.parent])
 
   useEffect(() => {
     Object.keys(checked).forEach((key) => onChange(key, checked[key]));
   }, [checked]);
+
+  useEffect(() => {
+    if (!isVisible) setChecked(initialState);
+  }, [isVisible]);
+
+  // console.log(isVisible);
+  // console.log(record.params);
+  // console.log('Parent', parentValue);
 
   return (
     <>
       {isVisible && (
         <>
           <H6>{property.props.label}</H6>
-          {checkBoxes.map((box, i) => (
-            <Box key={i}>
-              <Label>
-                {box.label}
-                <CheckBox
-                  key={i}
-                  onChange={(e) => handleChange(box.value, e.target.checked)}
-                  checked={checked[box.value]}
-                />
-              </Label>
-            </Box>
-          ))}
+          <CheckboxGrid>
+            {checkBoxes.map((box, i) => (
+              <Box key={i}>
+                <Label htmlFor={i}>
+                  {box.label}
+                  <ToggleSwitch
+                    id={i}
+                    onChange={(e) => handleChange(box.value, e.target.checked)}
+                    checked={checked[box.value]}
+                    name={box.value}
+                  />
+                </Label>
+              </Box>
+            ))}
+          </CheckboxGrid>
         </>
       )}
     </>
@@ -57,23 +83,8 @@ const CustomCheckBox = (props) => {
 export default CustomCheckBox;
 
 {
-  /* <label
-htmlFor={`${id}`}
-className='relative inline-block w-14 h-8 bg-gray-200 rounded-full cursor-pointer'>
-<Field
-  id={`${id}`}
-  type='checkbox'
-  className='sr-only'
-  checked={checked}
-  onChange={onChange}
-  name={name}
-/>
-<span
-  className={`absolute left-1 top-1  w-6 h-6 rounded-full transition-transform ${
-    checked
-      ? 'bg-teal-600 translate-x-6'
-      : 'bg-red-600 translate-x-0'
-  }`}
-/>
-</label> */
+  /* <CheckBox
+                  onChange={(e) => handleChange(box.value, e.target.checked)}
+                  checked={checked[box.value]}
+                /> */
 }
