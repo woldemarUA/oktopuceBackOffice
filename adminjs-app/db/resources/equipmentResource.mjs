@@ -18,8 +18,8 @@ import { Components } from '../../components/components.mjs';
 // shared fields import
 
 // import form config
-import equipmentFormLayout from '../../actions/Equipment/equipmentFormLayout.mjs';
-import equipmentShowLayout from '../../actions/Equipment/equipmentShowLayout.mjs';
+import equipmentFormLayout from '../../formConfigs/equipmentFormLayout.mjs';
+import equipmentShowLayout from '../../formConfigs/equipmentShowLayout.mjs';
 
 import {
   listVisibility,

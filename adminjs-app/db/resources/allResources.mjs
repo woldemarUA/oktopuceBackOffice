@@ -14,6 +14,16 @@ import {
   EquipmentEndroitResource,
 } from './equipmentResource.mjs';
 
+import {
+  InterventionsResource,
+  InterventionsQuestionsEquipmentResource,
+  InterventionsQuestionsResource,
+  InterventionsTypesResource,
+  InterventionsQuestionTypesResource,
+} from './interventionsResource.mjs';
+
+import { UserTypesResource, UsersResource } from './usersResource.mjs';
+
 import { SitesResource } from './sitesResource.mjs';
 
 const resourcesAll = async () => {
@@ -31,6 +41,13 @@ const resourcesAll = async () => {
     NfcTagsResource(),
     EquipmentProduitResource(),
     EquipmentEndroitResource(),
+    await InterventionsResource(),
+    InterventionsQuestionsEquipmentResource(),
+    InterventionsQuestionsResource(),
+    InterventionsTypesResource(),
+    InterventionsQuestionTypesResource(),
+    UserTypesResource(),
+    UsersResource(),
   ];
 };
 

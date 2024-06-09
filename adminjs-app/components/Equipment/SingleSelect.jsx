@@ -44,6 +44,7 @@ const SingleSelect = ({ property, record, onChange }) => {
   };
 
   useEffect(() => {
+    if (property.props.options) return setOptions(property.props.options);
     fetchOptions();
   }, [property.props.tableName]);
 

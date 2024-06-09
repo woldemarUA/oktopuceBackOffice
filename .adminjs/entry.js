@@ -13,8 +13,12 @@ import SingleSelect from '../adminjs-app/components/Equipment/SingleSelect'
 AdminJS.UserComponents.SingleSelect = SingleSelect
 import GasParamsComponent from '../adminjs-app/components/Equipment/GasParamsComponent'
 AdminJS.UserComponents.GasParamsComponent = GasParamsComponent
-import ParentComponent from '../adminjs-app/components/Equipment/ParentComponent'
-AdminJS.UserComponents.ParentComponent = ParentComponent
+import ToggleSwitch from '../adminjs-app/components/styled-componens/ToggleSwitch'
+AdminJS.UserComponents.ToggleSwitch = ToggleSwitch
+import InterventionsQuestionsComponent from '../adminjs-app/components/Intervention/InterventionsQuestionsComponent'
+AdminJS.UserComponents.InterventionsQuestionsComponent = InterventionsQuestionsComponent
+import EmptyBreak from '../adminjs-app/components/atoms/EmptyBreak'
+AdminJS.UserComponents.EmptyBreak = EmptyBreak
 import ImportComponent from '../node_modules/@adminjs/import-export/lib/components/ImportComponent'
 AdminJS.UserComponents.ImportComponent = ImportComponent
 import ExportComponent from '../node_modules/@adminjs/import-export/lib/components/ExportComponent'

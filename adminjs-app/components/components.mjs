@@ -29,28 +29,18 @@ const Components = {
     'GasParamsComponent',
     './Equipment/GasParamsComponent.jsx'
   ),
-  ParentComponent: componentLoader.add(
-    'ParentComponent',
-    './Equipment/ParentComponent'
-  ),
-  SingleSelect: componentLoader.add('SingleSelect', './Equipment/SingleSelect'),
 
-  ToggleSwitch: componentLoader.add('ToggleSwitch', './Equipment/ToggleSwitch'),
-  CustomSelect: componentLoader.add('CustomSelect', './Equipment/CustomSelect'),
-  CustomCheckBox: componentLoader.add(
-    'CustomCheckBox',
-    './Equipment/CustomCheckBox'
-  ),
-  LocationInfoComponent: componentLoader.add(
-    'LocationInfoComponent',
-    './Equipment/LocationInfoComponent'
-  ),
+  // SingleSelect: componentLoader.add('SingleSelect', './Equipment/SingleSelect'),
 
-  // ConditionalSelect: componentLoader.add(
-  //   'ConditionalSelect',
-  //   './Equipment/ConditionalSelect.jsx'
-  // ),
-  // other custom components
+  ToggleSwitch: componentLoader.add(
+    'ToggleSwitch',
+    './styled-componens/ToggleSwitch.jsx'
+  ),
+  InterventionsQuestionsComponent: componentLoader.add(
+    'InterventionsQuestionsComponent',
+    './Intervention/InterventionsQuestionsComponent.jsx'
+  ),
+  EmptyBreak: componentLoader.add('EmptyBreak', './atoms/EmptyBreak.jsx'),
 };
 
 export { Components };
