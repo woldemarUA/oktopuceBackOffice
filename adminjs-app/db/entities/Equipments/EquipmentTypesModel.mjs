@@ -9,17 +9,6 @@ export class EquipmentTypesModel extends Model {
     return new Set(res.map((r) => r.endroit_id));
   }
 
-  // static async isFinalite() {
-  //   const res = await this.findAll({
-  //     attributes: ['id'],
-  //     where: { is_finalite: true },
-  //   });
-
-  //   const records = res.map((r) => r.dataValues.id);
-
-  //   return records;
-  // }
-
   static async isOption(is_option) {
     const res = await this.findAll({
       attributes: ['id'],

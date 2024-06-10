@@ -1,4 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
+
 import sequelize from '../../db_connector.mjs';
 
 export class InterventionsModel extends Model {}
@@ -37,7 +38,7 @@ InterventionsModel.init(
     },
     company_name: {
       type: DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: true,
     },
     intervention_date: {
       type: DataTypes.DATEONLY,

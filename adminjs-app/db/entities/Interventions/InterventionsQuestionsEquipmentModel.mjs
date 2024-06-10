@@ -1,7 +1,42 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../db_connector.mjs';
 
-export class InterventionsQuestionsEquipmentModel extends Model {}
+import { InterventionsQuestionTypesModel } from './InterventionsQuestionTypesModel.mjs';
+
+export class InterventionsQuestionsEquipmentModel extends Model {
+  static async getInterventionQuestions(
+    intervention_type_id,
+    equipment_type_id
+  ) {
+    // Fetch data using Sequelize, including associated models
+    const results = await this.findAll({
+      where: {
+        intervention_type_id,
+        equipment_type_id,
+      },
+      include: [
+        {
+          model: InterventionsQuestionTypesModel,
+          attributes: ['id', 'name', 'type'],
+        },
+        // Optionally include other models if necessary
+      ],
+    });
+
+    // Convert each Sequelize model instance to a plain object
+    // const plainData = results.map((result) => {
+    //   // Ensure each included model is also converted to a plain object
+    //   return {
+    //     ...result.get({ plain: true }),
+    //     InterventionsQuestionTypesModel:
+    //       result.InterventionsQuestionTypesModel.get({ plain: true }),
+    //   };
+    // });
+
+    // return plainData; // Return plain data
+    return results.map((result) => result.InterventionsQuestionTypesModel); // Return plain data
+  }
+}
 
 InterventionsQuestionsEquipmentModel.init(
   {
@@ -60,6 +95,11 @@ InterventionsQuestionsEquipmentModel.init(
         name: 'fk_equipment_types_config',
         using: 'BTREE',
         fields: [{ name: 'equipment_type_id' }],
+      },
+      {
+        name: 'fk_intervention_types_config',
+        using: 'BTREE',
+        fields: [{ name: 'intervention_type_id' }],
       },
     ],
   }

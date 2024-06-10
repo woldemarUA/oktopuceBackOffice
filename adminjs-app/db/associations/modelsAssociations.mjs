@@ -1,16 +1,10 @@
 import { Clients } from '../entities/Clients/Clients.mjs';
 import { ClientTypes } from '../entities/Clients/ClientsTypes.mjs';
-
-import { EquipmentsModel } from '../entities/Equipments/EquipmentsModel.mjs';
-import { EquipmentBrandsModel } from '../entities/Equipments/EqipmentBrandsModel.mjs';
-import { EquipmentExtTypesModel } from '../entities/Equipments/EquipmentExtTypesModel.mjs';
-import { EquipmentIntTypesModel } from '../entities/Equipments/EquipmentIntTypesModel.mjs';
 import { EquipmentTypesModel } from '../entities/Equipments/EquipmentTypesModel.mjs'; // Assuming this was missing
-import { EquipmentGasTypesModel } from '../entities/Equipments/EquipmentGasTypesModel.mjs';
-import { NfcTagsModel } from '../entities/Equipments/NfcTagsModel.mjs';
-import { EquipmentLocationsModel } from '../entities/Equipments/EquipmentLocationsModel.mjs';
-import { EquipmentEndroitModel } from '../entities/Equipments/EquipmentEndroitModel.mjs';
-import { EquipmentProduitModel } from '../entities/Equipments/EquipmentProduitModel.mjs';
+
+import { InterventionsTypesModel } from '../entities/Interventions/InterventionsTypesModel.mjs';
+import { InterventionsQuestionTypesModel } from '../entities/Interventions/InterventionsQuestionTypesModel.mjs';
+import { InterventionsQuestionsEquipmentModel } from '../entities/Interventions/InterventionsQuestionsEquipmentModel.mjs';
 
 import { SitesModel } from '../entities/Sites/SitesModel.mjs';
 
@@ -35,6 +29,38 @@ Clients.hasMany(SitesModel, {
   foreignKey: 'client_id',
   onDelete: 'RESTRICT',
   onUpdate: 'CASCADE',
+});
+
+InterventionsTypesModel.belongsToMany(InterventionsQuestionTypesModel, {
+  through: InterventionsQuestionsEquipmentModel,
+  foreignKey: 'intervention_type_id',
+  otherKey: 'question_type_id',
+});
+// InterventionsQuestionTypesModel is not associated to InterventionsQuestionsEquipmentModel!
+InterventionsQuestionsEquipmentModel.belongsTo(
+  InterventionsQuestionTypesModel,
+  { foreignKey: 'question_type_id' }
+);
+InterventionsQuestionsEquipmentModel.belongsTo(InterventionsTypesModel, {
+  foreignKey: 'intervention_type_id',
+});
+
+EquipmentTypesModel.belongsToMany(InterventionsQuestionTypesModel, {
+  through: InterventionsQuestionsEquipmentModel,
+  foreignKey: 'equipment_type_id',
+  otherKey: 'question_type_id',
+});
+
+InterventionsQuestionTypesModel.belongsToMany(InterventionsTypesModel, {
+  through: InterventionsQuestionsEquipmentModel,
+  foreignKey: 'question_type_id',
+  otherKey: 'intervention_type_id',
+});
+
+InterventionsQuestionTypesModel.belongsToMany(EquipmentTypesModel, {
+  through: InterventionsQuestionsEquipmentModel,
+  foreignKey: 'question_type_id',
+  otherKey: 'equipment_type_id',
 });
 
 // EquipmentsModel.belongsTo(EquipmentBrandsModel, {

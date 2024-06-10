@@ -1,5 +1,7 @@
 import importExportFeature from '@adminjs/import-export';
 
+import sequelize from '../db_connector.mjs';
+
 import { InterventionsModel } from '../entities/Interventions/InterventionsModel.mjs';
 import { InterventionsQuestionsEquipmentModel } from '../entities/Interventions/InterventionsQuestionsEquipmentModel.mjs';
 import { InterventionsQuestionsModel } from '../entities/Interventions/InterventionsQuestionsModel.mjs';
@@ -32,10 +34,29 @@ export const InterventionsResource = async () => {
       actions: {
         new: {
           layout: interventionsFormLayout,
+
+          after: async (response, request, context) => {
+            const { record } = context;
+            if (record.isValid() && record.id) {
+              const parsedQuestions = JSON.parse(record.params['questions']);
+              // Assuming `Profile` is another model
+              console.log('****************');
+              console.log(parsedQuestions);
+              console.log('****************');
+              // console.log(record.params);
+              // console.log('****************');
+              // console.log(request);
+              // console.log('****************');
+              for (const question of parsedQuestions)
+                await InterventionsQuestionsModel.create({
+                  intervention_id: record.params.id,
+                  question_type_id: question.id,
+                  response: question.value,
+                });
+            }
+            return response;
+          },
         },
-        // new: {
-        //   component: Components.InterventionsEditNew,
-        // },
       },
 
       listProperties: [
@@ -49,6 +70,7 @@ export const InterventionsResource = async () => {
       properties: {
         site_id: {
           isTitle: true,
+          isRequired: true,
           components: {
             edit: Components.SingleSelect,
           },
@@ -60,6 +82,7 @@ export const InterventionsResource = async () => {
         },
         technicien_id: {
           isTitle: true,
+          isRequired: true,
           components: {
             edit: Components.SingleSelect,
           },
@@ -72,6 +95,7 @@ export const InterventionsResource = async () => {
         },
         client_id: {
           isTitle: true,
+          isRequired: true,
           components: {
             edit: Components.SingleSelect,
           },
@@ -123,6 +147,9 @@ export const InterventionsResource = async () => {
             tableName: 'equipment_endroit',
           },
         },
+        intervention_type: {
+          isRequired: true,
+        },
         equipment_type_id: {
           components: {
             edit: Components.CustomSelect,
@@ -153,7 +180,29 @@ export const InterventionsQuestionsEquipmentResource = () => {
     resource: InterventionsQuestionsEquipmentModel,
     options: {
       navigation: interventionsNavigation,
-
+      actions: {
+        getInterventionQuestions: {
+          actionType: 'resource',
+          handler: async (request, response) => {
+            try {
+              const { intervention_type_id, equipment_type_id } = request.query;
+              const questions =
+                await InterventionsQuestionsEquipmentModel.getInterventionQuestions(
+                  intervention_type_id,
+                  equipment_type_id
+                  // 3,
+                  // 5
+                );
+              return response.send({
+                questions: [...questions],
+              }); // Ensure it's an array for JSON serialization
+            } catch (error) {
+              return response.status(500).send({ error: error.message });
+            }
+          },
+          isVisible: false, // Optionally hide this action in the UI if not needed visibly
+        },
+      },
       properties: {
         created_at: { isVisible: listVisibility },
         updated_at: { isVisible: listVisibility },

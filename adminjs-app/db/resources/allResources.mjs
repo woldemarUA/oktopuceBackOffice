@@ -1,4 +1,4 @@
-import '../associations/clientsAssociations.mjs';
+import '../associations/modelsAssociations.mjs';
 
 import ClientsResource, { ClientTypesResource } from './clientResource.mjs';
 import {
