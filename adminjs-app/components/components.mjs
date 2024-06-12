@@ -36,9 +36,19 @@ const Components = {
     'ToggleSwitch',
     './styled-componens/ToggleSwitch.jsx'
   ),
+
   InterventionsQuestionsComponent: componentLoader.add(
     'InterventionsQuestionsComponent',
     './Intervention/InterventionsQuestionsComponent.jsx'
+  ),
+
+  SoufflageComponent: componentLoader.add(
+    'SoufflageComponent',
+    './Intervention/SoufflageComponent.jsx'
+  ),
+  AdditionalQuestionsComponent: componentLoader.add(
+    'AdditionalQuestionsComponent',
+    './Intervention/AdditionalQuestionsComponent.jsx'
   ),
   EmptyBreak: componentLoader.add('EmptyBreak', './atoms/EmptyBreak.jsx'),
 };

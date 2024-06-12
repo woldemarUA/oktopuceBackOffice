@@ -17,6 +17,10 @@ import ToggleSwitch from '../adminjs-app/components/styled-componens/ToggleSwitc
 AdminJS.UserComponents.ToggleSwitch = ToggleSwitch
 import InterventionsQuestionsComponent from '../adminjs-app/components/Intervention/InterventionsQuestionsComponent'
 AdminJS.UserComponents.InterventionsQuestionsComponent = InterventionsQuestionsComponent
+import SoufflageComponent from '../adminjs-app/components/Intervention/SoufflageComponent'
+AdminJS.UserComponents.SoufflageComponent = SoufflageComponent
+import AdditionalQuestionsComponent from '../adminjs-app/components/Intervention/AdditionalQuestionsComponent'
+AdminJS.UserComponents.AdditionalQuestionsComponent = AdditionalQuestionsComponent
 import EmptyBreak from '../adminjs-app/components/atoms/EmptyBreak'
 AdminJS.UserComponents.EmptyBreak = EmptyBreak
 import ImportComponent from '../node_modules/@adminjs/import-export/lib/components/ImportComponent'

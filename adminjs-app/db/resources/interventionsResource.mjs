@@ -7,6 +7,8 @@ import { InterventionsQuestionsEquipmentModel } from '../entities/Interventions/
 import { InterventionsQuestionsModel } from '../entities/Interventions/InterventionsQuestionsModel.mjs';
 import { InterventionsQuestionTypesModel } from '../entities/Interventions/InterventionsQuestionTypesModel.mjs';
 import { InterventionsTypesModel } from '../entities/Interventions/InterventionsTypesModel.mjs';
+
+import { InterventionsDepQuestionsModel } from '../entities/Interventions/InterventionsDepQuestionsModel.mjs';
 import { UsersModel } from '../entities/Users/UserModel.mjs';
 
 //  components import
@@ -39,14 +41,7 @@ export const InterventionsResource = async () => {
             const { record } = context;
             if (record.isValid() && record.id) {
               const parsedQuestions = JSON.parse(record.params['questions']);
-              // Assuming `Profile` is another model
-              console.log('****************');
-              console.log(parsedQuestions);
-              console.log('****************');
-              // console.log(record.params);
-              // console.log('****************');
-              // console.log(request);
-              // console.log('****************');
+
               for (const question of parsedQuestions)
                 await InterventionsQuestionsModel.create({
                   intervention_id: record.params.id,
@@ -170,6 +165,36 @@ export const InterventionsResource = async () => {
         created_at: { isVisible: listVisibility },
         updated_at: { isVisible: listVisibility },
         id: { isVisible: idVisibility },
+      },
+    },
+  };
+};
+
+export const InterventionsDepQuestionsResource = async () => {
+  return {
+    resource: InterventionsDepQuestionsModel,
+    features: [importExportFeature({ componentLoader })],
+
+    options: {
+      navigation: interventionsNavigation,
+      actions: {
+        getDepQuestions: {
+          actionType: 'resource',
+          handler: async (request, response) => {
+            try {
+              const { parent_q_id } = request.query;
+              const questions =
+                await InterventionsDepQuestionsModel.getDependentQuestions(
+                  parent_q_id
+                );
+              return response.send({
+                questions: [...questions],
+              }); // Ensure it's an array for JSON serialization
+            } catch (error) {
+              return response.status(500).send({ error: error.message });
+            }
+          },
+        },
       },
     },
   };

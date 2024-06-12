@@ -20,6 +20,7 @@ import {
   InterventionsQuestionsResource,
   InterventionsTypesResource,
   InterventionsQuestionTypesResource,
+  InterventionsDepQuestionsResource,
 } from './interventionsResource.mjs';
 
 import { UserTypesResource, UsersResource } from './usersResource.mjs';
@@ -42,6 +43,7 @@ const resourcesAll = async () => {
     EquipmentProduitResource(),
     EquipmentEndroitResource(),
     await InterventionsResource(),
+    await InterventionsDepQuestionsResource(),
     InterventionsQuestionsEquipmentResource(),
     InterventionsQuestionsResource(),
     InterventionsTypesResource(),

@@ -6,6 +6,8 @@ import { InterventionsTypesModel } from '../entities/Interventions/Interventions
 import { InterventionsQuestionTypesModel } from '../entities/Interventions/InterventionsQuestionTypesModel.mjs';
 import { InterventionsQuestionsEquipmentModel } from '../entities/Interventions/InterventionsQuestionsEquipmentModel.mjs';
 
+import { InterventionsDepQuestionsModel } from '../entities/Interventions/InterventionsDepQuestionsModel.mjs';
+
 import { SitesModel } from '../entities/Sites/SitesModel.mjs';
 
 // Define the relationship
@@ -61,6 +63,34 @@ InterventionsQuestionTypesModel.belongsToMany(EquipmentTypesModel, {
   through: InterventionsQuestionsEquipmentModel,
   foreignKey: 'question_type_id',
   otherKey: 'equipment_type_id',
+});
+
+// parent kid questions
+
+InterventionsDepQuestionsModel.belongsTo(InterventionsQuestionTypesModel, {
+  foreignKey: 'parent_q_id',
+  as: 'ParentQuestion',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+
+// Defining the association for child_q_id
+InterventionsDepQuestionsModel.belongsTo(InterventionsQuestionTypesModel, {
+  foreignKey: 'child_q_id',
+  as: 'ChildQuestion',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+
+// Optional reverse associations
+InterventionsQuestionTypesModel.hasMany(InterventionsDepQuestionsModel, {
+  foreignKey: 'parent_q_id',
+  as: 'ParentQuestions',
+});
+
+InterventionsQuestionTypesModel.hasMany(InterventionsDepQuestionsModel, {
+  foreignKey: 'child_q_id',
+  as: 'ChildQuestions',
 });
 
 // EquipmentsModel.belongsTo(EquipmentBrandsModel, {
