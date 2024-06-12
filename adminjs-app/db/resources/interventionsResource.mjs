@@ -182,10 +182,11 @@ export const InterventionsDepQuestionsResource = async () => {
           actionType: 'resource',
           handler: async (request, response) => {
             try {
-              const { parent_q_id } = request.query;
+              const { parent_q_id, child_q_id } = request.query;
               const questions =
                 await InterventionsDepQuestionsModel.getDependentQuestions(
-                  parent_q_id
+                  parent_q_id,
+                  child_q_id
                 );
               return response.send({
                 questions: [...questions],

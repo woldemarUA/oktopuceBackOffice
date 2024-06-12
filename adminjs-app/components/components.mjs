@@ -50,6 +50,10 @@ const Components = {
     'AdditionalQuestionsComponent',
     './Intervention/AdditionalQuestionsComponent.jsx'
   ),
+  QuestionComponent: componentLoader.add(
+    'QuestionComponent',
+    './Intervention/QuestionComponent.jsx'
+  ),
   EmptyBreak: componentLoader.add('EmptyBreak', './atoms/EmptyBreak.jsx'),
 };
 

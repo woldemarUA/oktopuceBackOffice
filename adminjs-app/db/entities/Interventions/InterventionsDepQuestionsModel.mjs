@@ -3,9 +3,14 @@ import sequelize from '../../db_connector.mjs';
 import { InterventionsQuestionTypesModel } from './InterventionsQuestionTypesModel.mjs';
 
 export class InterventionsDepQuestionsModel extends Model {
-  static async getDependentQuestions(parent_q_id) {
+  static async getDependentQuestions(parent_q_id, child_q_id = null) {
+    const whereClause = { parent_q_id };
+
+    if (child_q_id !== null) {
+      whereClause.child_q_id = child_q_id;
+    }
     const res = await this.findAll({
-      where: { parent_q_id },
+      where: whereClause,
       include: [
         {
           model: InterventionsQuestionTypesModel,
