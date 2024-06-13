@@ -6,11 +6,30 @@ const CheckboxGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr); // Creates 2 columns
   grid-gap: 16px; // Adds space between the grid items
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr; // One column when the screen is less than 768px
+  }
   ${space} ${layout} // Allows space and layout props from styled-system
 `;
 
+// const CheckboxGrid = styled.div`
+//   display: grid;
+//   grid-template-columns: repeat(
+//     3,
+//     1fr
+//   ); // Flexible columns based on content size
+//   grid-gap: 16px; // Adds space between the grid items
+//   ${space} ${layout} // Allows space and layout props from styled-system
+
+//   @media (max-width: 768px) {
+//     grid-template-columns: 1fr; // One column when the screen is less than 768px
+//   }
+// `;
+
 // Optionally, style your Box and Label if needed
 const Box = styled.div`
+  display: flex;
+  flex-direction: column;
   ${space}
 `;
 

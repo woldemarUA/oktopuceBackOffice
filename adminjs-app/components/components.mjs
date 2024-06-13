@@ -54,6 +54,26 @@ const Components = {
     'QuestionComponent',
     './Intervention/QuestionComponent.jsx'
   ),
+  PressionsComponent: componentLoader.add(
+    'PressionsComponent',
+    './Intervention/PressionsComponent.jsx'
+  ),
+  PompeEauComponent: componentLoader.add(
+    'PompeEauComponent',
+    './Intervention/PompeEauComponent.jsx'
+  ),
+  EtancheiteComponent: componentLoader.add(
+    'EtancheiteComponent',
+    './Intervention/EtancheiteComponent.jsx'
+  ),
+  SecuriteComponent: componentLoader.add(
+    'SecuriteComponent',
+    './Intervention/SecuriteComponent.jsx'
+  ),
+  ResistanceComponent: componentLoader.add(
+    'ResistanceComponent',
+    './Intervention/ResistanceComponent.jsx'
+  ),
   EmptyBreak: componentLoader.add('EmptyBreak', './atoms/EmptyBreak.jsx'),
 };
 

@@ -21,6 +21,7 @@ import {
   listVisibility,
   idVisibility,
 } from './resourcesSharedFields/resourcesSharedFields.mjs';
+import { response } from 'express';
 
 const interventionsNavigation = {
   name: 'Interventions Configuration  ',
@@ -46,7 +47,7 @@ export const InterventionsResource = async () => {
                 await InterventionsQuestionsModel.create({
                   intervention_id: record.params.id,
                   question_type_id: question.id,
-                  response: question.value,
+                  response: question.response,
                 });
             }
             return response;
@@ -178,8 +179,25 @@ export const InterventionsDepQuestionsResource = async () => {
     options: {
       navigation: interventionsNavigation,
       actions: {
+        getParentAll: {
+          actionType: 'resource',
+          isVisible: false,
+          handler: async (request, response) => {
+            try {
+              const questions =
+                await InterventionsDepQuestionsModel.getParentAll();
+              return response.send({
+                questions: [...questions],
+              }); // Ensure it's an array for JSON serialization
+            } catch (error) {
+              return response.status(500).send({ error: error.message });
+            }
+          },
+        },
+
         getDepQuestions: {
           actionType: 'resource',
+          isVisible: false,
           handler: async (request, response) => {
             try {
               const { parent_q_id, child_q_id } = request.query;

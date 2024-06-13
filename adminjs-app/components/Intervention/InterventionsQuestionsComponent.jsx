@@ -11,24 +11,33 @@ const InterventionsQuestionsComponent = ({
   resource,
 }) => {
   const [questions, setQuestions] = useState([]);
-  const [parentId, setParentId] = useState(null);
-  const [parentIndex, setParentIndex] = useState(null);
-  const handleQuestionsValues = (index, parentId) => {
-    setParentId(parentId);
 
-    setParentIndex(index);
-    setQuestions((previousQuestions) =>
-      previousQuestions.map((question, i) =>
-        i === index ? { ...question, value: !question.value } : question
-      )
-    );
-  };
+  const [questionValues, setQuestionValues] = useState([]);
+
   //  Set questions into the JSON objet pour backend
   useEffect(() => {
-    onChange('questions', JSON.stringify(questions));
-  }, [questions]);
+    onChange('questions', JSON.stringify(questionValues));
+  }, [questionValues]);
 
+  // check for the duplicated values
+
+  const questionsValuesHandler = (newQuestion) => {
+    setQuestionValues((prevState) => {
+      const existingIndex = prevState.findIndex((q) => q.id === newQuestion.id);
+      if (existingIndex > -1) {
+        // Replace the existing object with the new one
+        const newState = [...prevState];
+        newState[existingIndex] = newQuestion;
+        return newState;
+      } else {
+        // Add the new question to the array
+        return [...prevState, newQuestion];
+      }
+    });
+  };
+  console.log(record.params.questions);
   useEffect(() => {
+    setQuestionValues([]);
     fetch(
       `/api/resources/interventions_questions_equipment/actions/getInterventionQuestions?intervention_type_id=${record.params.intervention_type_id}&equipment_type_id=${record.params.equipment_type_id}`
     )
@@ -37,18 +46,22 @@ const InterventionsQuestionsComponent = ({
         // const questions = questionsStateMapper(data.questions);
         setQuestions(data.questions);
       });
-  }, [record.params.equipment_type_id, record.params.intervention_type_id]);
-
-  // console.log(questions);
+  }, [
+    record.params.equipment_type_id,
+    record.params.intervention_type_id,
+    record.params.produit_id,
+    record.params.endroit_id,
+  ]);
 
   return (
     <CheckboxGrid>
       {questions.length > 0 ? (
-        questions.map((question, i) => (
+        questions.map((question) => (
           <QuestionComponent
-            key={i}
+            key={question.id}
             question={question}
             record={record}
+            questionsValuesHandler={questionsValuesHandler}
           />
         ))
       ) : (

@@ -52,20 +52,6 @@ const CustomSelect = ({ property, record, onChange }) => {
 
   return (
     <>
-      {/* {options.length > 0 && (
-        <FormGroup error={''}>
-          <Label htmlFor={property.name}>
-            {property.props.label} {property.name}
-          </Label>
-          <Select
-            options={options}
-            onChange={(selectedOption) => handleChange(selectedOption)}
-            name={property.name}
-            value={selectedOptionValue}
-          />
-          <FormMessage>{''}</FormMessage>
-        </FormGroup>
-      )} */}
       <FormGroup error={''}>
         <Label htmlFor={property.name}>{property.props.label}</Label>
         <Select

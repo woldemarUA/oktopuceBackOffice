@@ -30,3 +30,19 @@ const controleEtancheite = (poids, potentiel, detection) => {
 };
 
 export default controleEtancheite;
+
+export const temperatureOptions = (start, end, step = 1) => {
+  const range = [];
+  if (step > 0) {
+    for (let i = start; i < end; i += step) {
+      range.push(i);
+    }
+  } else if (step < 0) {
+    for (let i = start; i > end; i += step) {
+      range.push(i);
+    }
+  }
+  const options = [];
+  range.forEach((r) => options.push({ value: r, label: r }));
+  return options;
+};

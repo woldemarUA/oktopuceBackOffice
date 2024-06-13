@@ -25,6 +25,14 @@ export class InterventionsDepQuestionsModel extends Model {
       ...r.dataValues.ChildQuestion.dataValues,
     }));
   }
+
+  static async getParentAll() {
+    const res = await this.findAll({
+      attributes: ['parent_q_id'],
+    });
+    const resSet = new Set(res.map((r) => r.dataValues.parent_q_id));
+    return [...resSet];
+  }
 }
 
 InterventionsDepQuestionsModel.init(
@@ -56,6 +64,11 @@ InterventionsDepQuestionsModel.init(
       allowNull: true,
       defaultValue: null,
     },
+    // fonction: {
+    //   type: DataTypes.STRING(64),
+    //   allowNull: true,
+    //   defaultValue: null,
+    // },
     created_at: {
       type: DataTypes.DATE,
       allowNull: true,

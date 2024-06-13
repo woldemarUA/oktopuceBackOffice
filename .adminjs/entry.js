@@ -23,6 +23,16 @@ import AdditionalQuestionsComponent from '../adminjs-app/components/Intervention
 AdminJS.UserComponents.AdditionalQuestionsComponent = AdditionalQuestionsComponent
 import QuestionComponent from '../adminjs-app/components/Intervention/QuestionComponent'
 AdminJS.UserComponents.QuestionComponent = QuestionComponent
+import PressionsComponent from '../adminjs-app/components/Intervention/PressionsComponent'
+AdminJS.UserComponents.PressionsComponent = PressionsComponent
+import PompeEauComponent from '../adminjs-app/components/Intervention/PompeEauComponent'
+AdminJS.UserComponents.PompeEauComponent = PompeEauComponent
+import EtancheiteComponent from '../adminjs-app/components/Intervention/EtancheiteComponent'
+AdminJS.UserComponents.EtancheiteComponent = EtancheiteComponent
+import SecuriteComponent from '../adminjs-app/components/Intervention/SecuriteComponent'
+AdminJS.UserComponents.SecuriteComponent = SecuriteComponent
+import ResistanceComponent from '../adminjs-app/components/Intervention/ResistanceComponent'
+AdminJS.UserComponents.ResistanceComponent = ResistanceComponent
 import EmptyBreak from '../adminjs-app/components/atoms/EmptyBreak'
 AdminJS.UserComponents.EmptyBreak = EmptyBreak
 import ImportComponent from '../node_modules/@adminjs/import-export/lib/components/ImportComponent'
