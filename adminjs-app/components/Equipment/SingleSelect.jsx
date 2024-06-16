@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Select from 'react-select';
-import { FormGroup, FormMessage, Label } from '@adminjs/design-system';
+import { Select } from '@adminjs/design-system';
+import { Label } from '@adminjs/design-system';
 
 const SingleSelect = ({ property, record, onChange }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -53,7 +53,7 @@ const SingleSelect = ({ property, record, onChange }) => {
   return (
     <>
       {isVisible && (
-        <FormGroup error={''}>
+        <>
           <Label htmlFor={property.name}>{property.props.label}</Label>
           <Select
             options={options}
@@ -61,8 +61,7 @@ const SingleSelect = ({ property, record, onChange }) => {
             name={property.name}
             value={selectedOptionValue}
           />
-          <FormMessage>{''}</FormMessage>
-        </FormGroup>
+        </>
       )}
     </>
   );

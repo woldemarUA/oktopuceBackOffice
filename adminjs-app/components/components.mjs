@@ -9,6 +9,10 @@ const Components = {
     'DashboardCard',
     './Dashboard/Dashboard.jsx'
   ),
+  EquipmentForm: componentLoader.add(
+    'EquipmentForm',
+    './Equipment/EquipmentForm.jsx'
+  ),
   CustomSelect: componentLoader.add(
     'CustomSelect',
     './Equipment/CustomSelect.jsx'
@@ -74,6 +78,28 @@ const Components = {
     'ResistanceComponent',
     './Intervention/ResistanceComponent.jsx'
   ),
+  InterventionQuestionsShow: componentLoader.add(
+    'InterventionQuestionsShow',
+    './Intervention/InterventionQuestionsShow.jsx'
+  ),
+  ParametrageShowComponent: componentLoader.add(
+    'ParametrageShowComponent',
+    './Intervention/ParametrageShowComponent.jsx'
+  ),
+  ProductSelect: componentLoader.add(
+    'ProductSelect',
+    './atoms/ProductSelect.jsx'
+  ),
+  FrenchDate: componentLoader.add('FrenchDate', './atoms/FrenchDate.jsx'),
+  EquipmentShowComponent: componentLoader.add(
+    'EquipmentShowComponent',
+    './atoms/EquipmentShowComponent.jsx'
+  ),
+  InterventionShowComponent: componentLoader.add(
+    'InterventionShowComponent',
+    './atoms/InterventionShowComponent.jsx'
+  ),
+  ProductShow: componentLoader.add('ProductShow', './atoms/ProductShow.jsx'),
   EmptyBreak: componentLoader.add('EmptyBreak', './atoms/EmptyBreak.jsx'),
 };
 

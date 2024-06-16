@@ -33,6 +33,20 @@ import SecuriteComponent from '../adminjs-app/components/Intervention/SecuriteCo
 AdminJS.UserComponents.SecuriteComponent = SecuriteComponent
 import ResistanceComponent from '../adminjs-app/components/Intervention/ResistanceComponent'
 AdminJS.UserComponents.ResistanceComponent = ResistanceComponent
+import InterventionQuestionsShow from '../adminjs-app/components/Intervention/InterventionQuestionsShow'
+AdminJS.UserComponents.InterventionQuestionsShow = InterventionQuestionsShow
+import ParametrageShowComponent from '../adminjs-app/components/Intervention/ParametrageShowComponent'
+AdminJS.UserComponents.ParametrageShowComponent = ParametrageShowComponent
+import ProductSelect from '../adminjs-app/components/atoms/ProductSelect'
+AdminJS.UserComponents.ProductSelect = ProductSelect
+import FrenchDate from '../adminjs-app/components/atoms/FrenchDate'
+AdminJS.UserComponents.FrenchDate = FrenchDate
+import EquipmentShowComponent from '../adminjs-app/components/atoms/EquipmentShowComponent'
+AdminJS.UserComponents.EquipmentShowComponent = EquipmentShowComponent
+import InterventionShowComponent from '../adminjs-app/components/atoms/InterventionShowComponent'
+AdminJS.UserComponents.InterventionShowComponent = InterventionShowComponent
+import ProductShow from '../adminjs-app/components/atoms/ProductShow'
+AdminJS.UserComponents.ProductShow = ProductShow
 import EmptyBreak from '../adminjs-app/components/atoms/EmptyBreak'
 AdminJS.UserComponents.EmptyBreak = EmptyBreak
 import ImportComponent from '../node_modules/@adminjs/import-export/lib/components/ImportComponent'

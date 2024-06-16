@@ -4,15 +4,16 @@ import QuestionComponent from './QuestionComponent';
 
 import { CheckboxGrid } from '../styled-componens/CheckBoxGrid.mjs';
 
-const InterventionsQuestionsComponent = ({
-  onChange,
-  record,
-  property,
-  resource,
-}) => {
+const InterventionsQuestionsComponent = ({ onChange, record }) => {
   const [questions, setQuestions] = useState([]);
 
   const [questionValues, setQuestionValues] = useState([]);
+  const [childQuestionIds, setChildQuestionIds] = useState([]);
+  const [interventionType, setInterventionType] = useState(null);
+
+  useEffect(() => {
+    setInterventionType(record.params.intervention_type_id);
+  }, [record.params.intervention_type_id]);
 
   //  Set questions into the JSON objet pour backend
   useEffect(() => {
@@ -23,19 +24,27 @@ const InterventionsQuestionsComponent = ({
 
   const questionsValuesHandler = (newQuestion) => {
     setQuestionValues((prevState) => {
+      const newState = [...prevState];
       const existingIndex = prevState.findIndex((q) => q.id === newQuestion.id);
       if (existingIndex > -1) {
         // Replace the existing object with the new one
-        const newState = [...prevState];
         newState[existingIndex] = newQuestion;
-        return newState;
       } else {
         // Add the new question to the array
-        return [...prevState, newQuestion];
+        newState.push(newQuestion);
       }
+      // Check if the question is a parent and the response is false,
+      // then remove all child questions responses
+      if (newQuestion.response === false) {
+        return newState.filter((q) => !childQuestionIds.includes(q.id));
+      }
+
+      return newState;
     });
   };
-  console.log(record.params.questions);
+
+  // console.log(questionValues);
+  // console.log(record.params.questions);
   useEffect(() => {
     setQuestionValues([]);
     fetch(
@@ -48,7 +57,8 @@ const InterventionsQuestionsComponent = ({
       });
   }, [
     record.params.equipment_type_id,
-    record.params.intervention_type_id,
+    // record.params.intervention_type_id,
+    interventionType,
     record.params.produit_id,
     record.params.endroit_id,
   ]);
@@ -62,6 +72,7 @@ const InterventionsQuestionsComponent = ({
             question={question}
             record={record}
             questionsValuesHandler={questionsValuesHandler}
+            childQuestionsHandler={setChildQuestionIds}
           />
         ))
       ) : (

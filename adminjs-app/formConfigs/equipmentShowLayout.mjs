@@ -1,261 +1,67 @@
-const equipmentShowLayout = [
-  [
-    { mx: 'auto' },
+import {
+  sectionConfig,
+  headingSectionConfig,
+  rowConfig,
+  cellConfig,
+} from './commonConfigs.mjs';
+
+const equipmentShowLayout = () => {
+  return [
+    {
+      mx: 'auto',
+    },
     [
-      ['@H4', { children: 'Parametrage' }],
-
       [
-        {
-          flexDirection: ['column', 'row'],
-          flex: true,
-          justifyContent: 'space-between',
-        },
+        sectionConfig,
         [
-          {
-            flexGrow: 1,
-            mb: '0.1rem',
-            mr: '0.5rem',
+          ['@H6', { children: 'Parametrage', style: headingSectionConfig }],
+          // Parametrage range
 
-            width: 'auto',
-            minWidth: 'fit-content',
-          },
           [
-            'site_id',
-            {
-              flexGrow: 1,
-              mb: '0.1rem',
-              mr: '0.5rem',
-
-              width: 'auto',
-              minWidth: 'fit-content',
-            },
+            rowConfig,
+            [
+              ['site_id', cellConfig],
+              ['nfc_tag_id', cellConfig],
+              ['parent_equipment_id', cellConfig],
+              ['installation_date', cellConfig],
+            ],
           ],
           [
-            'nfc_tag_id',
-            {
-              flexGrow: 1,
-              mb: '0.1rem',
-              mr: '0.5rem',
-
-              width: 'auto',
-              minWidth: 'fit-content',
-            },
+            rowConfig,
+            [
+              ['produit_id', cellConfig],
+              ['endroit_id', cellConfig],
+              ['equipment_type_id', cellConfig],
+            ],
           ],
-          [
-            'installation_date',
-            {
-              flexGrow: 1,
-              mb: '0.1rem',
-              mr: '0.5rem',
 
-              width: 'auto',
-              minWidth: 'fit-content',
-            },
-          ],
-        ],
-      ],
-
-      // Parametrage range
-      [
-        {
-          flexDirection: ['column', 'row'],
-          flex: true,
-          justifyContent: 'space-between',
-        },
-
-        [
-          [
-            'produit_id',
-            {
-              flexGrow: 1,
-              mb: '0.1rem',
-              mr: '0.5rem',
-
-              width: 'auto',
-              minWidth: 'fit-content',
-            },
-          ],
-          [
-            'endroit_id',
-            {
-              flexGrow: 1,
-              mb: '0.5rem',
-              mr: '0.5rem',
-              width: 'auto',
-              minWidth: 'fit-content',
-            },
-          ],
-          [
-            'equipment_type_id',
-            {
-              flexGrow: 1,
-              mb: '0.5rem',
-              mr: '0.5rem',
-              width: 'auto',
-              minWidth: 'fit-content',
-            },
-          ],
-        ],
-      ],
-    ],
-  ],
-  [
-    ['@H6', { children: 'Emplacement' }],
-    [
-      {
-        flexDirection: ['column', 'row'],
-        flex: true,
-        justifyContent: 'space-between',
-      },
-      [
-        [
-          'location_id',
-          {
-            flexGrow: 1,
-            mb: '0.1rem',
-            mr: '0.5rem',
-
-            width: 'auto',
-            // minWidth: 'fit-content',
-          },
+          // [['parametrage']],
         ],
       ],
       [
+        sectionConfig,
         [
-          'location_precision',
-          {
-            flexGrow: 1,
-            mb: '0.1rem',
-            mr: '0.5rem',
+          ['@H6', { children: 'Informations', style: headingSectionConfig }],
+          //
+          [
+            { ...rowConfig, justifyContent: 'flex-start' },
+            [
+              [['equipment_brand_id', cellConfig]],
+              [['equipment_model', cellConfig]],
+              [['serial_number', cellConfig]],
+              [['remote_control_number', cellConfig]],
+              [['unite_interieur_type_id', cellConfig]],
+              [['unite_exterieur_type_id', cellConfig]],
+            ],
+          ],
 
-            width: 'auto',
-            // minWidth: 'fit-content',
-          },
+          [rowConfig, [[['location_data', cellConfig]]]],
+          [rowConfig, [['finalites', cellConfig]]],
+          [rowConfig, [['gas_params', cellConfig]]],
         ],
       ],
     ],
-  ],
-  // [
-  //   [
-  //     { flexDirection: 'row', flex: true },
-  //     ['location_data', { pr: 'default', flexGrow: 1 }],
-  //   ],
-  // ],
-  [
-    [
-      { flexDirection: 'row', flex: true },
-      ['finalites', { pr: 'default', flexGrow: 1 }],
-    ],
-  ],
-
-  [
-    ['@H4', { children: 'Information' }],
-
-    // Information range
-
-    // Brand range
-    [
-      {
-        flexDirection: ['column', 'row'],
-        flex: true,
-        justifyContent: 'space-between',
-      },
-      [
-        [
-          'equipment_brand_id',
-          {
-            flexGrow: 1,
-            mb: '0.1rem',
-            mr: '0.5rem',
-
-            width: 'auto',
-            minWidth: 'fit-content',
-          },
-        ],
-        [
-          'equipment_model',
-          {
-            flexGrow: 1,
-            mb: '0.1rem',
-            mr: '0.5rem',
-
-            width: 'auto',
-            minWidth: 'fit-content',
-          },
-        ],
-        [
-          'unite_exterieur_type_id',
-          {
-            flexGrow: 1,
-            mb: '0.1rem',
-            mr: '0.5rem',
-
-            width: 'auto',
-            minWidth: 'fit-content',
-          },
-        ],
-        [
-          'unite_interieur_type_id',
-          {
-            flexGrow: 1,
-            mb: '0.1rem',
-            mr: '0.5rem',
-
-            width: 'auto',
-            minWidth: 'fit-content',
-          },
-        ],
-      ],
-    ],
-
-    // serial number range
-    [
-      {
-        flexDirection: ['column', 'row'],
-        flex: true,
-        justifyContent: 'space-between',
-      },
-      [
-        [
-          'serial_number',
-          {
-            flexGrow: 1,
-            mb: '0.1rem',
-            mr: '0.5rem',
-
-            width: 'auto',
-            minWidth: 'fit-content',
-          },
-        ],
-        [
-          'remote_control_number',
-          {
-            flexGrow: 1,
-            mb: '0.1rem',
-            mr: '0.5rem',
-
-            width: 'auto',
-            minWidth: 'fit-content',
-          },
-        ],
-      ],
-    ],
-  ],
-
-  // Finalites range
-  // [
-  //   [
-  //     { flexDirection: 'row', flex: true },
-  //     ['finalites', { pr: 'default', flexGrow: 1 }],
-  //   ],
-  // ],
-  // Gas range
-  [
-    [
-      { flexDirection: 'row', flex: true },
-      [['gas_params', { pr: 'default', flexGrow: 1 }]],
-    ],
-  ],
-];
+  ];
+};
 
 export default equipmentShowLayout;

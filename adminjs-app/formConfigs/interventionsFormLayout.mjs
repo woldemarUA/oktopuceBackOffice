@@ -11,15 +11,6 @@ const interventionsFormLayout = [
   },
   [
     [
-      '@Header',
-      {
-        children: 'Ajout Intervention',
-        style: headingSectionConfig,
-      },
-    ],
-
-    // SECTION
-    [
       sectionConfig,
       [
         [
@@ -45,15 +36,7 @@ const interventionsFormLayout = [
           ],
         ],
 
-        [
-          rowConfig,
-
-          [
-            ['produit_id', cellConfig],
-            ['endroit_id', cellConfig],
-            ['equipment_type_id', cellConfig],
-          ],
-        ],
+        [['parametrage']],
       ],
     ],
 

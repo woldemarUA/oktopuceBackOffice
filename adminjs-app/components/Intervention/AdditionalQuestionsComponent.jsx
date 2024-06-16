@@ -1,6 +1,6 @@
 import React from 'react';
-import { Label, CheckboxGrid } from '../styled-componens/CheckBoxGrid.mjs';
-import Select from 'react-select';
+import { Label } from '../styled-componens/CheckBoxGrid.mjs';
+import { Select } from '@adminjs/design-system';
 import ToggleSwitch from '../styled-componens/ToggleSwitch';
 
 const convertOptions = (str) => {

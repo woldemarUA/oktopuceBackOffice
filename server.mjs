@@ -12,7 +12,7 @@ import Plugin from '@adminjs/express';
 import { componentLoader } from './adminjs-app/setUp/componentLoader.mjs';
 import { Components } from './adminjs-app/components/components.mjs';
 
-// import sequelize from './adminjs-app/db/db_connector.mjs';
+import { light, dark } from '@adminjs/themes';
 
 // importation des resources
 
@@ -47,15 +47,19 @@ async function run() {
     ...adminOptions,
     componentLoader,
     rootPath: '/',
+
     dashboard: {
       component: Components.DashboardCard,
     },
     branding: {
       companyName: 'OKTOPUCE',
       logo: 'https://oktopuce.com/build/images/logo.5fd235f1.svg',
+
       softwareBrothers: false,
       withMadeWithLove: false,
     },
+    defaultTheme: 'dark', // same as `dark` from id in the theme index file,
+    availableThemes: [light, dark],
     locale: {
       debug: false,
       language: 'fr',

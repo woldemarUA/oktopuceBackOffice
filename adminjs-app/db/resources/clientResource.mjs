@@ -19,7 +19,8 @@ const ClientsResource = () => ({
   resource: Clients,
   features: [importExportFeature({ componentLoader })],
   options: {
-    navigation: clientNavigation,
+    // navigation: clientNavigation,
+    navigation: false,
     properties: {
       last_name: { position: 1, isTitle: true },
       first_name: { position: 2 },
@@ -49,7 +50,8 @@ export const ClientTypesResource = () => {
   return {
     resource: ClientTypes,
     options: {
-      navigation: clientNavigation,
+      // navigation: clientNavigation,
+      navigation: false,
       properties: {
         created_at: { isVisible: listVisibility },
         updated_at: { isVisible: listVisibility },

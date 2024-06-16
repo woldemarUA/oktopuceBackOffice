@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Label, CheckboxGrid, Box } from '../styled-componens/CheckBoxGrid.mjs';
+import { Label, Box } from '../styled-componens/CheckBoxGrid.mjs';
 import ToggleSwitch from '../styled-componens/ToggleSwitch';
 
 import SoufflageComponent from './SoufflageComponent';
@@ -32,7 +32,12 @@ export const optionsMapper = (str) => {
   return str.split(',').map((option) => ({ value: option, label: option }));
 };
 
-const QuestionComponent = ({ question, record, questionsValuesHandler }) => {
+const QuestionComponent = ({
+  question,
+  record,
+  questionsValuesHandler,
+  childQuestionsHandler,
+}) => {
   const [parentIds, setParentIds] = useState([]);
 
   // api/resources/interventions_dep_questions/actions/getParentAll
@@ -43,7 +48,7 @@ const QuestionComponent = ({ question, record, questionsValuesHandler }) => {
 
   const auxMapping = new Map([
     [
-      6,
+      6, // added
       <SoufflageComponent
         parent={7}
         fetchAux={fetchAdditionalQuestions}
@@ -52,7 +57,7 @@ const QuestionComponent = ({ question, record, questionsValuesHandler }) => {
       />,
     ],
     [
-      7,
+      7, // added
       <SoufflageComponent
         parent={question.id}
         fetchAux={fetchAdditionalQuestions}
@@ -61,7 +66,7 @@ const QuestionComponent = ({ question, record, questionsValuesHandler }) => {
       />,
     ],
     [
-      51,
+      51, // added
       <PressionsComponent
         parent={question.id}
         fetchAux={fetchAdditionalQuestions}
@@ -70,7 +75,7 @@ const QuestionComponent = ({ question, record, questionsValuesHandler }) => {
       />,
     ],
     [
-      28,
+      28, // added
       <PompeEauComponent
         parent={question.id}
         fetchAux={fetchAdditionalQuestions}
@@ -79,7 +84,7 @@ const QuestionComponent = ({ question, record, questionsValuesHandler }) => {
       />,
     ],
     [
-      69,
+      69, // added
       <PompeEauComponent
         parent={question.id}
         fetchAux={fetchAdditionalQuestions}
@@ -88,16 +93,17 @@ const QuestionComponent = ({ question, record, questionsValuesHandler }) => {
       />,
     ],
     [
-      57,
+      57, // added
       <SecuriteComponent
         parent={question.id}
         fetchAux={fetchAdditionalQuestions}
+        optionsMapper={optionsMapper}
         questionsValuesHandler={questionsValuesHandler}
       />,
     ],
     [
       58,
-      <ResistanceComponent
+      <ResistanceComponent // added
         parent={question.id}
         fetchAux={fetchAdditionalQuestions}
         questionsValuesHandler={questionsValuesHandler}
@@ -123,6 +129,20 @@ const QuestionComponent = ({ question, record, questionsValuesHandler }) => {
   useEffect(() => {
     questionsValuesHandler({ id: question.id, response: response });
   }, [question, response]);
+
+  useEffect(() => {
+    async function setChildIds() {
+      if (!response && parentIds.includes(question.id)) {
+        const childIds = await fetchAdditionalQuestions(question.id);
+
+        childQuestionsHandler(
+          childIds.questions.map((question) => question.id)
+        );
+      }
+    }
+
+    setChildIds();
+  }, [response, question]);
 
   useEffect(() => {
     if (response && parentIds.includes(question.id)) {

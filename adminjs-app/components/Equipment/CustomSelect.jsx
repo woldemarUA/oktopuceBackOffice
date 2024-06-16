@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Select from 'react-select';
+import { Select } from '@adminjs/design-system';
 import { FormGroup, FormMessage } from '@adminjs/design-system';
 import { Label } from '@adminjs/design-system';
 
@@ -28,9 +28,20 @@ const CustomSelect = ({ property, record, onChange }) => {
         }
         const data = await response.json();
 
-        setOptions(
-          data.records.map((item) => ({ value: item.id, label: item.title }))
-        );
+        const formattedOptions = data.records.map((item) => ({
+          value: item.id,
+          label: item.title,
+        }));
+
+        setOptions(formattedOptions);
+        // FOR EDIT ACTION Set initial value after options have loaded
+        if (record && record.params[property.name]) {
+          const initialValue = formattedOptions.find(
+            (opt) => opt.value === record.params[property.name]
+          );
+          console.log(initialValue);
+          setSelectedOptionValue(initialValue);
+        }
       } catch (error) {
         console.error('Failed to fetch options:', error);
       }

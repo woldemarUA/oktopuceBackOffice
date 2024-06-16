@@ -21,10 +21,9 @@ import {
   listVisibility,
   idVisibility,
 } from './resourcesSharedFields/resourcesSharedFields.mjs';
-import { response } from 'express';
 
 const interventionsNavigation = {
-  name: 'Interventions Configuration  ',
+  name: 'Interventions',
 };
 
 export const InterventionsResource = async () => {
@@ -42,7 +41,6 @@ export const InterventionsResource = async () => {
             const { record } = context;
             if (record.isValid() && record.id) {
               const parsedQuestions = JSON.parse(record.params['questions']);
-
               for (const question of parsedQuestions)
                 await InterventionsQuestionsModel.create({
                   intervention_id: record.params.id,
@@ -52,6 +50,12 @@ export const InterventionsResource = async () => {
             }
             return response;
           },
+        },
+        show: {
+          layout: interventionsFormLayout,
+        },
+        edit: {
+          layout: interventionsFormLayout,
         },
       },
 
@@ -117,50 +121,60 @@ export const InterventionsResource = async () => {
           },
         },
 
-        produit_id: {
-          isTitle: true,
-
-          components: {
-            edit: Components.SingleSelect,
-          },
-          props: {
-            dependant: 'endroit_id',
-            label: 'Sur quel produit est installé le puce?',
-            tableName: 'equipment_produit',
-            isVisible: true,
-          },
-        },
-        endroit_id: {
-          isTitle: true,
-
-          components: {
-            edit: Components.CustomSelect,
-          },
-          props: {
-            parent: 'produit_id',
-            dependant: 'equipment_type_id',
-            label: 'A quel endroit?',
-            tableName: 'equipment_endroit',
-          },
-        },
         intervention_type: {
           isRequired: true,
         },
-        equipment_type_id: {
+        parametrage: {
           components: {
-            edit: Components.CustomSelect,
-          },
-
-          props: {
-            parent: 'endroit_id',
-            label: "Type d'unité ",
-            tableName: 'equipment_types',
-            dependant: 'finalites',
+            edit: Components.ProductSelect,
+            show: Components.ParametrageShowComponent,
           },
         },
+        // produit_id: {
+        //   isTitle: true,
+
+        //   components: {
+        //     edit: Components.SingleSelect,
+        //   },
+        //   props: {
+        //     dependant: 'endroit_id',
+        //     label: 'Sur quel produit est installé le puce?',
+        //     tableName: 'equipment_produit',
+        //     isVisible: true,
+        //   },
+        // },
+        // endroit_id: {
+        //   isTitle: true,
+
+        //   components: {
+        //     edit: Components.CustomSelect,
+        //   },
+        //   props: {
+        //     parent: 'produit_id',
+        //     dependant: 'equipment_type_id',
+        //     label: 'A quel endroit?',
+        //     tableName: 'equipment_endroit',
+        //   },
+        // },
+        // equipment_type_id: {
+        //   components: {
+        //     edit: Components.CustomSelect,
+        //   },
+
+        //   props: {
+        //     parent: 'endroit_id',
+        //     label: "Type d'unité ",
+        //     tableName: 'equipment_types',
+        //     dependant: 'finalites',
+        //   },
+        // },
         intervention_questions: {
           components: {
             edit: Components.InterventionsQuestionsComponent,
+            show: Components.InterventionQuestionsShow,
+          },
+          props: {
+            questionsFetch: await InterventionsQuestionsModel.getQuestions(57),
           },
         },
         created_at: { isVisible: listVisibility },
@@ -177,8 +191,10 @@ export const InterventionsDepQuestionsResource = async () => {
     features: [importExportFeature({ componentLoader })],
 
     options: {
-      navigation: interventionsNavigation,
+      // navigation: interventionsNavigation,
+      navigation: false,
       actions: {
+        show: { isAccessible: false },
         getParentAll: {
           actionType: 'resource',
           isVisible: false,
@@ -223,7 +239,8 @@ export const InterventionsQuestionsEquipmentResource = () => {
   return {
     resource: InterventionsQuestionsEquipmentModel,
     options: {
-      navigation: interventionsNavigation,
+      // navigation: interventionsNavigation,
+      navigation: false,
       actions: {
         getInterventionQuestions: {
           actionType: 'resource',
@@ -260,8 +277,25 @@ export const InterventionsQuestionsResource = () => {
   return {
     resource: InterventionsQuestionsModel,
     options: {
-      navigation: interventionsNavigation,
-
+      // navigation: interventionsNavigation,
+      navigation: false,
+      actions: {
+        getQuestions: {
+          actionType: 'resource',
+          handler: async (request, response, context) => {
+            const { intervention_id, equipment_type_id } = request.query;
+            try {
+              const questions = await InterventionsQuestionsModel.getQuestions(
+                intervention_id
+              );
+              return response.send({ questions: [...questions] }); // Ensure it's an array for JSON serialization
+            } catch (error) {
+              return response.status(500).send({ error: error.message });
+            }
+          },
+          isVisible: false, // Optionally hide this action in the UI if not needed visibly
+        },
+      },
       properties: {
         created_at: { isVisible: listVisibility },
         updated_at: { isVisible: listVisibility },
@@ -275,8 +309,8 @@ export const InterventionsQuestionTypesResource = () => {
   return {
     resource: InterventionsQuestionTypesModel,
     options: {
-      navigation: interventionsNavigation,
-
+      // navigation: interventionsNavigation,
+      navigation: false,
       properties: {
         created_at: { isVisible: listVisibility },
         updated_at: { isVisible: listVisibility },
@@ -290,8 +324,8 @@ export const InterventionsTypesResource = () => {
   return {
     resource: InterventionsTypesModel,
     options: {
-      navigation: interventionsNavigation,
-
+      // navigation: interventionsNavigation,
+      navigation: false,
       properties: {
         created_at: { isVisible: listVisibility },
         updated_at: { isVisible: listVisibility },

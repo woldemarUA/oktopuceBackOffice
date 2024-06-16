@@ -1,5 +1,5 @@
 export const sectionConfig = {
-  backgroundColor: '#f0f0f0', // Background color for the entire section
+  // backgroundColor: '#f0f0f0', // Background color for the entire section
   border: '2px solid #ccc', // Border for the entire section
   padding: '20px', // Padding for the entire section
   borderRadius: '10px', // Optional: rounded corners
@@ -7,7 +7,7 @@ export const sectionConfig = {
 };
 
 export const headingSectionConfig = {
-  color: 'green',
+  // color: 'green',
   fontStyle: 'italic',
   marginBottom: '10px',
 };

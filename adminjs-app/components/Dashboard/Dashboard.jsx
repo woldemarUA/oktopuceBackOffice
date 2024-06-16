@@ -7,14 +7,14 @@ const DashboardCard = () => {
     justifyContent: 'center',
     alignItems: 'center',
     height: '100vh',
-    backgroundColor: '#f4f4f4', // Light grey background
+    // backgroundColor: '#f4f4f4', // Light grey background
   };
 
   const cardStyle = {
     width: '300px', // Adjust width as needed
     padding: '20px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     textAlign: 'center',
     borderRadius: '8px',
   };

@@ -1,7 +1,31 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../db_connector.mjs';
+import { InterventionsQuestionTypesModel } from './InterventionsQuestionTypesModel.mjs';
 
-export class InterventionsQuestionsModel extends Model {}
+export class InterventionsQuestionsModel extends Model {
+  static async getQuestions(intervention_id) {
+    const res = await this.findAll({
+      where: {
+        intervention_id,
+      },
+      attributes: ['id', 'response'],
+      include: [
+        {
+          model: InterventionsQuestionTypesModel,
+          as: 'question_name',
+          attributes: ['name', 'type'],
+        },
+      ],
+    });
+
+    return res.map((q) => ({
+      id: q.dataValues.id,
+      response: q.dataValues.response,
+      name: q.dataValues.question_name.dataValues.name,
+      type: q.dataValues.question_name.dataValues.type,
+    }));
+  }
+}
 
 InterventionsQuestionsModel.init(
   {

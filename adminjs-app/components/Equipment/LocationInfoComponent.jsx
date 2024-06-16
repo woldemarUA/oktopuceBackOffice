@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 import { Box, Label, H6, TextArea } from '@adminjs/design-system';
 
-import { CheckboxGrid } from '../styled-componens/CheckBoxGrid.mjs';
-import Select from 'react-select';
+import {
+  CheckboxGrid,
+  StyledTextArea,
+} from '../styled-componens/CheckBoxGrid.mjs';
+import { Select } from '@adminjs/design-system';
 
 import ToggleSwitch from '../styled-componens/ToggleSwitch';
 
@@ -74,9 +77,6 @@ const LocationInfoComponent = (props) => {
   useEffect(() => {
     loadOptions(inputValue, () => {});
   }, [isVisible]);
-  //   console.log(resource.properties[property.props.textField.value].propertyPath);
-  //   console.log(property.props);
-  // console.log(showPrecision);
 
   useEffect(() => {
     if (!isVisible) {
@@ -120,8 +120,7 @@ const LocationInfoComponent = (props) => {
           </CheckboxGrid>
 
           {showPrecision && (
-            <TextArea
-              type='text'
+            <StyledTextArea
               id={
                 resource.properties[property.props.textField.value].propertyPath
               }
@@ -130,8 +129,6 @@ const LocationInfoComponent = (props) => {
               }
               onChange={(e) => handleChangeTextField(e.target.value)}
               rows={3}
-              my={10}
-              width={1}
               placeholder={property.props.textField.label}
             />
           )}

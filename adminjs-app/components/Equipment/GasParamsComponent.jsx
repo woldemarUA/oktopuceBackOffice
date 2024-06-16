@@ -12,7 +12,6 @@ import ToggleSwitch from '../styled-componens/ToggleSwitch';
 import controleEtancheite from '../../utilities/controleEtancheite.mjs';
 
 const GasParamsComponent = ({ property, record, onChange }) => {
-  console.log(property.props);
   const [isVisible, setIsVisible] = useState(false);
   const [periodicite, setPeriodicite] = useState(controleEtancheite());
   const [poidsGaz, setPoidGaz] = useState(0);
@@ -55,14 +54,13 @@ const GasParamsComponent = ({ property, record, onChange }) => {
     onChange('leak_detection_periodicity', periodicite);
   }, [record.params.gas_type_id, poidsGaz, has_leak_detection]);
 
-  console.log(isVisible);
-
   return (
     <>
       {isVisible && (
         <Box>
           <StyledLabel>{property.props.label}</StyledLabel>
-          <CheckboxGrid>
+
+          <CheckboxGrid mb='3'>
             <Box>
               <SingleSelect
                 property={gasTypeProperty}
@@ -80,6 +78,8 @@ const GasParamsComponent = ({ property, record, onChange }) => {
                 onChange={(e) => handleInputValue(e.target.value)}
               />
             </Box>
+          </CheckboxGrid>
+          <CheckboxGrid>
             <Box>
               <ToggleSwitch
                 id='has_leak_detection'
@@ -90,6 +90,7 @@ const GasParamsComponent = ({ property, record, onChange }) => {
               />
             </Box>
             <Box>
+              <span>Contrôle d’étanchéité obligatoire:</span>
               <span>{periodicite}</span>
             </Box>
           </CheckboxGrid>

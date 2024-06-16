@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Label } from '../styled-componens/CheckBoxGrid.mjs';
-import Select from 'react-select';
+import { Select } from '@adminjs/design-system';
 
 import { temperatureOptions } from '../../utilities/controleEtancheite.mjs';
 
@@ -56,12 +56,25 @@ const SoufflageComponent = ({
     soufDeltaValue,
     auxQuestions,
   ]);
-
   useEffect(() => {
-    setSoufDeltaValue(
-      releveValue && repriseValue ? releveValue - repriseValue : null
-    );
+    if (
+      releveValue !== null &&
+      releveValue !== undefined &&
+      repriseValue !== null &&
+      repriseValue !== undefined
+    ) {
+      setSoufDeltaValue(releveValue - repriseValue);
+    } else {
+      setSoufDeltaValue(null);
+    }
   }, [releveValue, repriseValue]);
+
+  // useEffect(() => {
+
+  //   setSoufDeltaValue(
+  //     releveValue && repriseValue ? releveValue - repriseValue : null
+  //   );
+  // }, [releveValue, repriseValue]);
   useEffect(() => {
     async function fetchQuestions() {
       try {

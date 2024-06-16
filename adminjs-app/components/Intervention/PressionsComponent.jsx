@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Label } from '../styled-componens/CheckBoxGrid.mjs';
-import Select from 'react-select';
+import { Select } from '@adminjs/design-system';
 
 import { temperatureOptions } from '../../utilities/controleEtancheite.mjs';
 

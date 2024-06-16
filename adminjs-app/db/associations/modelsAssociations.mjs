@@ -5,6 +5,7 @@ import { EquipmentTypesModel } from '../entities/Equipments/EquipmentTypesModel.
 import { InterventionsTypesModel } from '../entities/Interventions/InterventionsTypesModel.mjs';
 import { InterventionsQuestionTypesModel } from '../entities/Interventions/InterventionsQuestionTypesModel.mjs';
 import { InterventionsQuestionsEquipmentModel } from '../entities/Interventions/InterventionsQuestionsEquipmentModel.mjs';
+import { InterventionsQuestionsModel } from '../entities/Interventions/InterventionsQuestionsModel.mjs';
 
 import { InterventionsDepQuestionsModel } from '../entities/Interventions/InterventionsDepQuestionsModel.mjs';
 
@@ -92,6 +93,17 @@ InterventionsQuestionTypesModel.hasMany(InterventionsDepQuestionsModel, {
   foreignKey: 'child_q_id',
   as: 'ChildQuestions',
 });
+
+InterventionsQuestionsModel.belongsTo(InterventionsQuestionTypesModel, {
+  foreignKey: 'question_type_id',
+  as: 'question_name',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+InterventionsQuestionTypesModel.hasMany(InterventionsQuestionsModel, {
+  foreignKey: 'question_type_id',
+});
+// InterventionsQuestionTypesModel is not associated to InterventionsQuestionsModel!
 
 // EquipmentsModel.belongsTo(EquipmentBrandsModel, {
 //   as: 'equipment_brand',

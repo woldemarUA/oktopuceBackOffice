@@ -29,6 +29,9 @@ const CustomCheckBox = (props) => {
     }));
   };
 
+  console.log(property.props.label);
+  console.log(isVisible);
+
   useEffect(() => {
     // if (record.params[property.props.parent]) {
     //   // setIsVisible(

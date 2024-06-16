@@ -12,9 +12,10 @@ const usersNavigation = {
 export const UsersResource = () => {
   return {
     resource: UsersModel,
-    options: {
-      navigation: usersNavigation,
 
+    options: {
+      // navigation: usersNavigation,
+      navigation: false,
       properties: {
         created_at: { isVisible: listVisibility },
         updated_at: { isVisible: listVisibility },
@@ -28,8 +29,8 @@ export const UserTypesResource = () => {
   return {
     resource: UserTypesModel,
     options: {
-      navigation: usersNavigation,
-
+      // navigation: usersNavigation,
+      navigation: false,
       properties: {
         created_at: { isVisible: listVisibility },
         updated_at: { isVisible: listVisibility },
