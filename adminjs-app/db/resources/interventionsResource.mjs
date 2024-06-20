@@ -1,7 +1,5 @@
 import importExportFeature from '@adminjs/import-export';
 
-import sequelize from '../db_connector.mjs';
-
 import { InterventionsModel } from '../entities/Interventions/InterventionsModel.mjs';
 import { InterventionsQuestionsEquipmentModel } from '../entities/Interventions/InterventionsQuestionsEquipmentModel.mjs';
 import { InterventionsQuestionsModel } from '../entities/Interventions/InterventionsQuestionsModel.mjs';
@@ -130,44 +128,41 @@ export const InterventionsResource = async () => {
             show: Components.ParametrageShowComponent,
           },
         },
-        // produit_id: {
-        //   isTitle: true,
-
+        signature_client: {
+          components: {
+            edit: Components.SignatureComp,
+            show: Components.ShowSignature,
+          },
+          props: {
+            name: 'signature_client',
+            label: 'Signature de Client',
+          },
+        },
+        signature_technicien: {
+          components: {
+            edit: Components.SignatureComp,
+            show: Components.ShowSignature,
+          },
+          props: {
+            name: 'signature_technicien',
+            label: 'Signature de Technicien',
+          },
+        },
+        // intervention_date: {
         //   components: {
-        //     edit: Components.SingleSelect,
-        //   },
-        //   props: {
-        //     dependant: 'endroit_id',
-        //     label: 'Sur quel produit est installé le puce?',
-        //     tableName: 'equipment_produit',
-        //     isVisible: true,
+        //     edit: Components.DateComp,
         //   },
         // },
-        // endroit_id: {
-        //   isTitle: true,
 
-        //   components: {
-        //     edit: Components.CustomSelect,
-        //   },
-        //   props: {
-        //     parent: 'produit_id',
-        //     dependant: 'equipment_type_id',
-        //     label: 'A quel endroit?',
-        //     tableName: 'equipment_endroit',
-        //   },
-        // },
-        // equipment_type_id: {
-        //   components: {
-        //     edit: Components.CustomSelect,
-        //   },
-
-        //   props: {
-        //     parent: 'endroit_id',
-        //     label: "Type d'unité ",
-        //     tableName: 'equipment_types',
-        //     dependant: 'finalites',
-        //   },
-        // },
+        document_upload: {
+          components: {
+            edit: Components.FileUpload,
+          },
+          props: {
+            name: 'document_upload',
+            label: 'Ajout Document',
+          },
+        },
         intervention_questions: {
           components: {
             edit: Components.InterventionsQuestionsComponent,

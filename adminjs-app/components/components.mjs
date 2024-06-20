@@ -99,7 +99,21 @@ const Components = {
     'InterventionShowComponent',
     './atoms/InterventionShowComponent.jsx'
   ),
+  FileUpload: componentLoader.add('FileUpload', './atoms/FileUpload.jsx'),
+  SignatureComp: componentLoader.add(
+    'SignatureComp',
+    './atoms/SignatureComp.jsx'
+  ),
   ProductShow: componentLoader.add('ProductShow', './atoms/ProductShow.jsx'),
+  ShowSignature: componentLoader.add(
+    'ShowSignature',
+    './atoms/ShowSignature.jsx'
+  ),
+  DateComp: componentLoader.add('DateComp', './atoms/DateComp.jsx'),
+  ShowSignature: componentLoader.add(
+    'ShowSignature',
+    './atoms/ShowSignature.jsx'
+  ),
   EmptyBreak: componentLoader.add('EmptyBreak', './atoms/EmptyBreak.jsx'),
 };
 

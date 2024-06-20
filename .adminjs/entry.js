@@ -45,11 +45,25 @@ import EquipmentShowComponent from '../adminjs-app/components/atoms/EquipmentSho
 AdminJS.UserComponents.EquipmentShowComponent = EquipmentShowComponent
 import InterventionShowComponent from '../adminjs-app/components/atoms/InterventionShowComponent'
 AdminJS.UserComponents.InterventionShowComponent = InterventionShowComponent
+import FileUpload from '../adminjs-app/components/atoms/FileUpload'
+AdminJS.UserComponents.FileUpload = FileUpload
+import SignatureComp from '../adminjs-app/components/atoms/SignatureComp'
+AdminJS.UserComponents.SignatureComp = SignatureComp
 import ProductShow from '../adminjs-app/components/atoms/ProductShow'
 AdminJS.UserComponents.ProductShow = ProductShow
+import ShowSignature from '../adminjs-app/components/atoms/ShowSignature'
+AdminJS.UserComponents.ShowSignature = ShowSignature
+import DateComp from '../adminjs-app/components/atoms/DateComp'
+AdminJS.UserComponents.DateComp = DateComp
 import EmptyBreak from '../adminjs-app/components/atoms/EmptyBreak'
 AdminJS.UserComponents.EmptyBreak = EmptyBreak
 import ImportComponent from '../node_modules/@adminjs/import-export/lib/components/ImportComponent'
 AdminJS.UserComponents.ImportComponent = ImportComponent
 import ExportComponent from '../node_modules/@adminjs/import-export/lib/components/ExportComponent'
 AdminJS.UserComponents.ExportComponent = ExportComponent
+import UploadEditComponent from '../node_modules/@adminjs/upload/build/features/upload-file/components/UploadEditComponent'
+AdminJS.UserComponents.UploadEditComponent = UploadEditComponent
+import UploadListComponent from '../node_modules/@adminjs/upload/build/features/upload-file/components/UploadListComponent'
+AdminJS.UserComponents.UploadListComponent = UploadListComponent
+import UploadShowComponent from '../node_modules/@adminjs/upload/build/features/upload-file/components/UploadShowComponent'
+AdminJS.UserComponents.UploadShowComponent = UploadShowComponent

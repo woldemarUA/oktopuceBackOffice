@@ -112,8 +112,6 @@ const ProductSelect = ({ record, onChange }) => {
     onChange(EQUIPMENT_TYPE_FIELD_NAME, equipment_type_id);
   }, [product_id, endroit_id, equipment_type_id]);
 
-  console.log(record.params);
-
   // setOptions(formattedOptions);
   // // FOR EDIT ACTION Set initial value after options have loaded
   // if (record && record.params[property.name]) {

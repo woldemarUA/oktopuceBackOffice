@@ -36,17 +36,12 @@ const equipmentFormLayout = () => {
           ['@H6', { children: 'Informations', style: headingSectionConfig }],
           //
           [
-            { ...rowConfig, justifyContent: 'space-around' },
+            rowConfig,
             [
               [['equipment_brand_id', cellConfig]],
               [['equipment_model', cellConfig]],
               [['unite_interieur_type_id', cellConfig]],
               [['unite_exterieur_type_id', cellConfig]],
-            ],
-          ],
-          [
-            { ...rowConfig, justifyContent: 'space-around' },
-            [
               [['serial_number', cellConfig]],
               [['remote_control_number', cellConfig]],
             ],

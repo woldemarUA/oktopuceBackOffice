@@ -29,21 +29,11 @@ const CustomCheckBox = (props) => {
     }));
   };
 
-  console.log(property.props.label);
-  console.log(isVisible);
-
   useEffect(() => {
-    // if (record.params[property.props.parent]) {
-    //   // setIsVisible(
-    //   //   property.props.isVisible.includes(record.params[property.props.parent])
-    //   // );
-
-    // }
     const newVisibility = property.props.isVisible.includes(
       record.params[property.props.parent]
     );
     setIsVisible(newVisibility);
-    // console.log('Visibility updated to:', newVisibility);
   }, [record.params[property.props.parent]]); // record.params[property.props.parent]  JSON.stringify(record.params[property.props.parent])
 
   useEffect(() => {
@@ -53,10 +43,6 @@ const CustomCheckBox = (props) => {
   useEffect(() => {
     if (!isVisible) setChecked(initialState);
   }, [isVisible]);
-
-  // console.log(isVisible);
-  // console.log(record.params);
-  // console.log('Parent', parentValue);
 
   return (
     <>
@@ -84,10 +70,3 @@ const CustomCheckBox = (props) => {
   );
 };
 export default CustomCheckBox;
-
-{
-  /* <CheckBox
-                  onChange={(e) => handleChange(box.value, e.target.checked)}
-                  checked={checked[box.value]}
-                /> */
-}

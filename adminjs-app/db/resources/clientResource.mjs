@@ -1,5 +1,5 @@
 import importExportFeature from '@adminjs/import-export';
-// import { componentLoader } from '../../../server.mjs';
+
 import { componentLoader } from '../../setUp/componentLoader.mjs';
 
 import { Clients } from '../entities/Clients/Clients.mjs';
@@ -19,8 +19,8 @@ const ClientsResource = () => ({
   resource: Clients,
   features: [importExportFeature({ componentLoader })],
   options: {
-    // navigation: clientNavigation,
-    navigation: false,
+    navigation: clientNavigation,
+    // navigation: false,
     properties: {
       last_name: { position: 1, isTitle: true },
       first_name: { position: 2 },
