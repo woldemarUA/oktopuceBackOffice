@@ -77,8 +77,6 @@ const SignatureComp = ({ property, record, onChange, resource }) => {
     }
   }, [filePath]);
 
-  console.log(record.params);
-
   return (
     <>
       <Box>

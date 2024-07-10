@@ -2,38 +2,36 @@ import { config } from 'dotenv';
 import * as url from 'url';
 import path from 'path';
 import express from 'express';
+import bodyParser from 'body-parser';
 import cors from 'cors';
 import { createServer } from 'http';
-import AdminJSSequelize from '@adminjs/sequelize';
-import AdminJS from 'adminjs';
-
-import multer from 'multer';
-
-import frenchTranslations from './adminjs-app/utilities/translationFR.json' assert { type: 'json' };
 import Plugin from '@adminjs/express';
-
-import { componentLoader } from './adminjs-app/setUp/componentLoader.mjs';
-import { Components } from './adminjs-app/components/components.mjs';
-
-import { light, dark } from '@adminjs/themes';
-
-// importation des resources
-
+import AdminJS, { Login } from 'adminjs';
+import AdminJSExpress from '@adminjs/express';
+import AdminJSSequelize from '@adminjs/sequelize';
+import multer from 'multer';
+import { DefaultAuthProvider } from 'adminjs';
 import resourcesAll from './adminjs-app/db/resources/allResources.mjs';
+import frenchTranslations from './adminjs-app/utilities/translationFR.json' assert { type: 'json' };
+import { componentLoader } from './adminjs-app/setUp/componentLoader.mjs';
+
+import { Components } from './adminjs-app/components/components.mjs';
+import { light, dark, noSidebar } from '@adminjs/themes';
+
+import { authenticate } from './adminjs-app/auth/authActions.mjs';
 
 config();
 
 const port = process.env.PORT || 3003;
 const app = express();
-// upload path config
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+const SECRET_KEY = 'oktopuce-secret';
 
 app.use(express.static(path.join(__dirname, './public')));
-// end upload path config
+app.use(cors());
+app.use(bodyParser.json());
 
-// multer
-
-// Configure storage for Multer
+// Multer configuration
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const folder = `public/uploads/${req.query.resourceId}/${encodeURIComponent(
@@ -48,78 +46,95 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Route to handle file uploads
 app.post('/upload', upload.single('myfile'), (req, res) => {
-  // Sending back file path to client (this could vary depending on your needs)
   const url = req.file.path;
   res.json({ path: url.replace('public/', '') });
 });
-// end multer
+
 AdminJS.registerAdapter({
   Resource: AdminJSSequelize.Resource,
   Database: AdminJSSequelize.Database,
 });
 
-app.use(cors());
-
-app.use(express.json());
 const server = createServer(app);
-app.get('/backoffice', (req, res) => {
-  res.send(`Hello Woldemar`);
-});
+
+// app.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// });
 
 async function run() {
+  // createUser('vlad.timchenko@gmail.com', 'chinaboy', 1);
+
   const adminOptions = {
-    // databases: [sequelize],
     resources: await resourcesAll(),
-    // resources: [...resourcesAll, EquipmentsResource()],
   };
 
-  // admin start
+  // authenticate
+  const authProvider = new DefaultAuthProvider({
+    componentLoader,
+    authenticate,
+  });
+
   const admin = new AdminJS({
-    // databases: [sequelize],
     ...adminOptions,
     componentLoader,
     rootPath: '/',
-
     dashboard: {
       component: Components.DashboardCard,
     },
+
     branding: {
       companyName: 'OKTOPUCE',
-      logo: 'https://oktopuce.com/build/images/logo.5fd235f1.svg',
-
+      logo: '/logo/logo.5fd235f1.svg',
       softwareBrothers: false,
       withMadeWithLove: false,
     },
-    defaultTheme: 'dark', // same as `dark` from id in the theme index file,
-    availableThemes: [light, dark],
+    defaultTheme: 'dark',
+    availableThemes: [light, dark, noSidebar],
     locale: {
       debug: false,
       language: 'fr',
       availableLanguages: ['en', 'pl', 'fr', 'ua', 'de', 'es', 'it'],
       localeDetection: false,
       translations: {
-        fr: frenchTranslations,
+        fr: {
+          ...frenchTranslations,
+          components: {
+            Login: {
+              welcomeHeader: "Bienvenue dans l'application de gestion Oktopuce",
+              welcomeMessage: 'Merci de vous connecter pour continuer',
+              properties: {
+                email: 'Votre email',
+                password: 'Votre mot de pass',
+              },
+              loginButton: 'Se connecter',
+            },
+          },
+        },
       },
     },
-
-    // },
-    // loginPath and logoutPath:
-    // Example of adding authentication:
-    // auth: {
-    //   authenticate: async (email, password) => {
-    //     // Your authentication logic here
-    //   },
-    //   cookiePassword: 'session_cookie_password',
-    // },
+    assets: {
+      styles: ['/styles/styles.css'],
+    },
   });
 
-  const adminRouter = Plugin.buildRouter(admin);
-  admin.watch();
+  // const adminRouter = Plugin.buildRouter(admin);
+  const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
+    admin,
+    {
+      cookiePassword: 'test',
+      provider: authProvider,
+    },
+    null,
+    {
+      secret: 'test',
+      resave: false,
+      saveUninitialized: true,
+    }
+  );
+
   app.use(admin.options.rootPath, adminRouter);
 
-  // Use 'passenger' for Phusion Passenger, otherwise default to port
   if (typeof PhusionPassenger !== 'undefined') {
     server.listen('passenger', () => {
       console.log('Server running with Phusion Passenger');
@@ -131,4 +146,4 @@ async function run() {
   }
 }
 
-await run();
+run();

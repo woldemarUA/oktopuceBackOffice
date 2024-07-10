@@ -44,10 +44,15 @@ const PressionsComponent = ({
 
   useEffect(() => {
     if (auxQuestions) {
-      questionsValuesHandler({ id: mode.id, response: modeOption });
+      questionsValuesHandler({
+        id: mode.id,
+        response: modeOption,
+        parent_id: 'pression',
+      });
       questionsValuesHandler({
         id: pressionReleve.id,
         response: pressionReleveValue,
+        parent_id: 'pression',
       });
     }
   }, [modeOption, pressionReleveValue, auxQuestions]);

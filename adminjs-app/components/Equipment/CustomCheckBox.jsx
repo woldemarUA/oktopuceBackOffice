@@ -6,7 +6,7 @@ import { Label, CheckboxGrid, Box } from '../styled-componens/CheckBoxGrid.mjs';
 import ToggleSwitch from '../styled-componens/ToggleSwitch';
 
 const CustomCheckBox = (props) => {
-  const { onChange, record, property, resource } = props;
+  const { onChange, record, property } = props;
   const checkBoxes = property.availableValues;
   const [parentValue, setParentValue] = useState(
     record.params[property.props.parent]

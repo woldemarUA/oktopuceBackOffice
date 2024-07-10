@@ -21,7 +21,7 @@ const CheckboxGrid = styled.div`
 const Box = styled.div`
   display: flex;
   flex-direction: ${(props) => props.direction || 'column'};
-  justify-content: space-between;
+  justify-content: ${(props) => props.spacing || 'space-between'};
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -32,7 +32,7 @@ const Label = styled.label`
   display: flex; // Changes display to flex to use flexbox properties
 
   align-items: center; // Vertically centers the children
-  justify-content: space-between; // Spreads the children out across the label's width
+  // justify-content: space-between; // Spreads the children out across the label's width
   cursor: pointer;
   ${space}
 `;

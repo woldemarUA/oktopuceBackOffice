@@ -14,6 +14,7 @@ const EtancheiteComponent = ({ parent, fetchAux, questionsValuesHandler }) => {
       questionsValuesHandler({
         id: etancheReseaux.id,
         response: etancheReseauxValue,
+        parent_id: 'etancheite',
       });
     }
   }, [etancheReseauxValue, auxQuestions]);
@@ -27,6 +28,7 @@ const EtancheiteComponent = ({ parent, fetchAux, questionsValuesHandler }) => {
         );
 
         setAuxQuestions(data.questions);
+        console.log(auxQuestions);
       } catch (error) {
         console.error('Failed to fetch options:', error);
         return null;
@@ -36,7 +38,6 @@ const EtancheiteComponent = ({ parent, fetchAux, questionsValuesHandler }) => {
     fetchQuestions();
   }, [parent]);
 
-  console.log(auxQuestions);
   return (
     <Box my={1}>
       {auxQuestions && (

@@ -31,6 +31,8 @@ import EtancheiteComponent from '../adminjs-app/components/Intervention/Etanchei
 AdminJS.UserComponents.EtancheiteComponent = EtancheiteComponent
 import SecuriteComponent from '../adminjs-app/components/Intervention/SecuriteComponent'
 AdminJS.UserComponents.SecuriteComponent = SecuriteComponent
+import DepannageComponent from '../adminjs-app/components/Intervention/DepannageComponent'
+AdminJS.UserComponents.DepannageComponent = DepannageComponent
 import ResistanceComponent from '../adminjs-app/components/Intervention/ResistanceComponent'
 AdminJS.UserComponents.ResistanceComponent = ResistanceComponent
 import InterventionQuestionsShow from '../adminjs-app/components/Intervention/InterventionQuestionsShow'
@@ -55,8 +57,24 @@ import ShowSignature from '../adminjs-app/components/atoms/ShowSignature'
 AdminJS.UserComponents.ShowSignature = ShowSignature
 import DateComp from '../adminjs-app/components/atoms/DateComp'
 AdminJS.UserComponents.DateComp = DateComp
+import FileShow from '../adminjs-app/components/atoms/FileShow'
+AdminJS.UserComponents.FileShow = FileShow
+import SelectCellFlex from '../adminjs-app/components/atoms/SelectCellFlex'
+AdminJS.UserComponents.SelectCellFlex = SelectCellFlex
 import EmptyBreak from '../adminjs-app/components/atoms/EmptyBreak'
 AdminJS.UserComponents.EmptyBreak = EmptyBreak
+import ListPropertySitesSelectComponent from '../adminjs-app/components/atoms/ListPropertySitesSelectComponent'
+AdminJS.UserComponents.ListPropertySitesSelectComponent = ListPropertySitesSelectComponent
+import ListPropertyEquipmentSelectComponent from '../adminjs-app/components/atoms/ListPropertyEquipmentSelectComponent'
+AdminJS.UserComponents.ListPropertyEquipmentSelectComponent = ListPropertyEquipmentSelectComponent
+import GoBackComponent from '../adminjs-app/components/atoms/GoBackComponent'
+AdminJS.UserComponents.GoBackComponent = GoBackComponent
+import DropDownComp from '../adminjs-app/components/atoms/DropDownComp'
+AdminJS.UserComponents.DropDownComp = DropDownComp
+import ShowChildrenQuestions from '../adminjs-app/components/atoms/ShowChildrenQuestions'
+AdminJS.UserComponents.ShowChildrenQuestions = ShowChildrenQuestions
+import AddFormWithFrame from '../adminjs-app/components/atoms/AddFormWithFrame'
+AdminJS.UserComponents.AddFormWithFrame = AddFormWithFrame
 import ImportComponent from '../node_modules/@adminjs/import-export/lib/components/ImportComponent'
 AdminJS.UserComponents.ImportComponent = ImportComponent
 import ExportComponent from '../node_modules/@adminjs/import-export/lib/components/ExportComponent'

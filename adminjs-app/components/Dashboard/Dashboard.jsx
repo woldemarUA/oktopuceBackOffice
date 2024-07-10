@@ -29,7 +29,8 @@ const DashboardCard = () => {
     <div style={containerStyle}>
       <div style={cardStyle}>
         <img
-          src='https://oktopuce.com/build/images/logo.5fd235f1.svg'
+          src='/logo/logo.5fd235f1.svg'
+          // src='https://oktopuce.com/build/images/logo.5fd235f1.svg'
           alt='Company Logo'
           style={logoStyle}
         />

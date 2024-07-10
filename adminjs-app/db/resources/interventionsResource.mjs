@@ -14,11 +14,14 @@ import { componentLoader } from '../../setUp/componentLoader.mjs';
 import { Components } from '../../components/components.mjs';
 
 import interventionsFormLayout from '../../formConfigs/interventionsFormLayout.mjs';
+import interventionsShowLayout from '../../formConfigs/InterventionsShowLayout.mjs';
 
 import {
   listVisibility,
   idVisibility,
 } from './resourcesSharedFields/resourcesSharedFields.mjs';
+
+import { getQuestions } from './actions/interventionsActions.mjs';
 
 const interventionsNavigation = {
   name: 'Interventions',
@@ -28,13 +31,12 @@ export const InterventionsResource = async () => {
   return {
     resource: InterventionsModel,
     features: [importExportFeature({ componentLoader })],
-
     options: {
       navigation: interventionsNavigation,
       actions: {
         new: {
           layout: interventionsFormLayout,
-
+          component: Components.EquipmentForm,
           after: async (response, request, context) => {
             const { record } = context;
             if (record.isValid() && record.id) {
@@ -44,16 +46,36 @@ export const InterventionsResource = async () => {
                   intervention_id: record.params.id,
                   question_type_id: question.id,
                   response: question.response,
+                  parent_id: question.parent_id,
                 });
             }
             return response;
           },
         },
+        // goBack: {
+        //   actionType: 'resource',
+        //   icon: 'ChevronLeft',
+        //   handler: async (request, response, context) => {
+        //     // const { currentAdmin } = context;
+        //     console.log('***********************');
+        //     console.log(componentLoader);
+        //     console.log('***********************');
+        //     // const referer = request.headers.referer;
+        //     const redirectUrl = '/';
+        //     return {
+        //       // record: context.record.toJSON(currentAdmin),
+        //       redirectUrl: redirectUrl,
+        //     };
+        //   },
+        //   component: false, // Disable the default component
+        //   isVisible: true, // Ensure the action is visible in all views
+        // },
         show: {
-          layout: interventionsFormLayout,
+          layout: interventionsShowLayout,
         },
         edit: {
           layout: interventionsFormLayout,
+          component: Components.EquipmentForm,
         },
       },
 
@@ -66,6 +88,11 @@ export const InterventionsResource = async () => {
       ],
 
       properties: {
+        homeBtn: {
+          components: {
+            edit: Components.GoBackComponent,
+          },
+        },
         site_id: {
           isTitle: true,
           isRequired: true,
@@ -73,7 +100,7 @@ export const InterventionsResource = async () => {
             edit: Components.SingleSelect,
           },
           props: {
-            label: 'Lieu?',
+            label: 'Site?',
             tableName: 'sites',
             isVisible: true,
           },
@@ -118,6 +145,14 @@ export const InterventionsResource = async () => {
             isVisible: true,
           },
         },
+        intervention_date: {
+          components: {
+            edit: Components.DateComp,
+          },
+          props: {
+            label: "Date d'Intervention",
+          },
+        },
 
         intervention_type: {
           isRequired: true,
@@ -126,6 +161,15 @@ export const InterventionsResource = async () => {
           components: {
             edit: Components.ProductSelect,
             show: Components.ParametrageShowComponent,
+          },
+          props: {
+            product: { table: 'clients', field: 'client_id', label: 'Client' },
+            endroit: { table: 'sites', field: 'site_id', label: 'Site' },
+            equipment: {
+              table: 'equipments',
+              field: 'equipment_id',
+              label: 'Machine',
+            },
           },
         },
         signature_client: {
@@ -148,15 +192,11 @@ export const InterventionsResource = async () => {
             label: 'Signature de Technicien',
           },
         },
-        // intervention_date: {
-        //   components: {
-        //     edit: Components.DateComp,
-        //   },
-        // },
 
         document_upload: {
           components: {
             edit: Components.FileUpload,
+            show: Components.FileShow,
           },
           props: {
             name: 'document_upload',
@@ -167,9 +207,6 @@ export const InterventionsResource = async () => {
           components: {
             edit: Components.InterventionsQuestionsComponent,
             show: Components.InterventionQuestionsShow,
-          },
-          props: {
-            questionsFetch: await InterventionsQuestionsModel.getQuestions(57),
           },
         },
         created_at: { isVisible: listVisibility },
@@ -277,13 +314,12 @@ export const InterventionsQuestionsResource = () => {
       actions: {
         getQuestions: {
           actionType: 'resource',
-          handler: async (request, response, context) => {
-            const { intervention_id, equipment_type_id } = request.query;
+          handler: async (request, response) => {
+            const { intervention_id } = request.query;
             try {
-              const questions = await InterventionsQuestionsModel.getQuestions(
-                intervention_id
-              );
-              return response.send({ questions: [...questions] }); // Ensure it's an array for JSON serialization
+              const questions = await getQuestions(intervention_id);
+
+              return response.send([...questions]); // Ensure it's an array for JSON serialization
             } catch (error) {
               return response.status(500).send({ error: error.message });
             }

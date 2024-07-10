@@ -15,10 +15,12 @@ export async function fetchOptions(
     }
     const data = await response.json();
 
-    const formattedOptions = data.records.map((item) => ({
-      value: item.id,
-      label: item.title,
-    }));
+    const formattedOptions = data.records.map((item) => {
+      return {
+        value: item.id,
+        label: item.title,
+      };
+    });
     return formattedOptions;
   } catch (error) {
     console.error('Failed to fetch options:', error);

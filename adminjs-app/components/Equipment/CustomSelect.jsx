@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Select } from '@adminjs/design-system';
-import { FormGroup, FormMessage } from '@adminjs/design-system';
-import { Label } from '@adminjs/design-system';
+import { Select, FormGroup, FormMessage, Label } from '@adminjs/design-system';
 
 const CustomSelect = ({ property, record, onChange }) => {
   const [options, setOptions] = useState([]);

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import { Label, Box } from '../styled-componens/CheckBoxGrid.mjs';
+import { Label } from '../styled-componens/CheckBoxGrid.mjs';
+
+import { Section, Cell, Row, CellFlex } from '../styled-componens/Atoms.mjs';
 import ToggleSwitch from '../styled-componens/ToggleSwitch';
 
 import SoufflageComponent from './SoufflageComponent';
@@ -47,6 +49,7 @@ const QuestionComponent = ({
   const [auxComp, setAuxComp] = useState(null);
 
   const auxMapping = new Map([
+    // [3, <DepannageComponent questionsValuesHandler={questionsValuesHandler} />],
     [
       6, // added
       <SoufflageComponent
@@ -176,21 +179,23 @@ const QuestionComponent = ({
     fetchAux();
   }, [question]);
 
-  // console.log(record.params);
-
   return (
-    <Box>
-      <Label htmlFor={question.id}>
-        {question.name}
-        <ToggleSwitch
-          id={question.id}
-          name={question.id}
-          checked={response}
-          onChange={handleChange}
-        />
-      </Label>
-      {auxComp}
-    </Box>
+    <Section borderW='0px'>
+      <Row>
+        <CellFlex mr={1}>
+          <Label htmlFor={question.id}>{question.name}</Label>
+        </CellFlex>
+        <CellFlex>
+          <ToggleSwitch
+            id={question.id}
+            name={question.id}
+            checked={response}
+            onChange={handleChange}
+          />
+        </CellFlex>
+      </Row>
+      <Row> {auxComp}</Row>
+    </Section>
   );
 };
 

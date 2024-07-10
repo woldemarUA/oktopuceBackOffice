@@ -37,14 +37,20 @@ const PompeEauComponent = ({
 
   useEffect(() => {
     if (auxQuestions) {
-      questionsValuesHandler({ id: mode.id, response: modeOption });
+      questionsValuesHandler({
+        id: mode.id,
+        response: modeOption,
+        parent_id: 'pompeEau',
+      });
       questionsValuesHandler({
         id: departEau.id,
         response: departEauValue,
+        parent_id: 'pompeEau',
       });
       questionsValuesHandler({
         id: retourEau.id,
         response: retourEauValue,
+        parent_id: 'pompeEau',
       });
     }
   }, [modeOption, departEauValue, retourEauValue, auxQuestions]);

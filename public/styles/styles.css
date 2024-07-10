@@ -1,0 +1,25 @@
+.adminjs_Illustration {
+    display: none;
+}
+
+.login__Wrapper {
+    background: black !important;
+}
+
+.login__Wrapper .adminjs_Box {
+    background: rgb(75, 74, 74) !important;
+    color: white !important;
+}
+.login__Wrapper .adminjs_Button{
+    background: rgb(15, 15, 15) !important;
+    color: white !important;
+    border: 0.1rem solid, white;
+    border-radius: 0.3rem;
+}
+.login__Wrapper .adminjs_Button:hover{
+    background: rgb(15, 15, 15) !important;
+    color: white !important;
+    border: 0.1rem solid, rgb(52, 155, 4);
+    border-radius: 0.3rem;
+}
+

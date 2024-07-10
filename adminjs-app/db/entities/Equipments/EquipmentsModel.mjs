@@ -1,7 +1,34 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../db_connector.mjs';
 
-export class EquipmentsModel extends Model {}
+export class EquipmentsModel extends Model {
+  static async getBySiteId(site_id) {
+    const response = await this.findAll({
+      where: { site_id },
+      attributes: [
+        ['id', 'value'],
+        ['serial_number', 'name'],
+      ],
+    });
+
+    return response.map((res) => res.dataValues);
+  }
+
+  static async getBySitesIds(siteIDs) {
+    const response = [];
+    for (const id of siteIDs) {
+      const equipment = await this.getBySiteId(id);
+      // if (equipment.length > 0) response.push({ ...equipment, site_id: id });
+      if (equipment.length > 0) {
+        console.log(equipment);
+        for (const eq of equipment)
+          response.push({ ...eq, site_id: id, link: this.tableName });
+        // response.push({ ...equipment, site_id: id })
+      }
+    }
+    return response;
+  }
+}
 
 EquipmentsModel.init(
   {
@@ -91,6 +118,11 @@ EquipmentsModel.init(
       type: DataTypes.STRING(255),
       allowNull: true,
     },
+    // name: {
+    //   type: DataTypes.STRING(255),
+    //   allowNull: false,
+    //   field: 'serial_number',
+    // },
     serial_number: {
       type: DataTypes.STRING(255),
       allowNull: false,

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import QuestionComponent from './QuestionComponent';
 
 import { CheckboxGrid } from '../styled-componens/CheckBoxGrid.mjs';
+import DepannageComponent from './DepannageComponent';
 
 const InterventionsQuestionsComponent = ({ onChange, record }) => {
   const [questions, setQuestions] = useState([]);
@@ -43,8 +44,6 @@ const InterventionsQuestionsComponent = ({ onChange, record }) => {
     });
   };
 
-  // console.log(questionValues);
-  // console.log(record.params.questions);
   useEffect(() => {
     setQuestionValues([]);
     fetch(
@@ -52,29 +51,35 @@ const InterventionsQuestionsComponent = ({ onChange, record }) => {
     )
       .then((res) => res.json())
       .then((data) => {
-        // const questions = questionsStateMapper(data.questions);
         setQuestions(data.questions);
       });
   }, [
     record.params.equipment_type_id,
-    // record.params.intervention_type_id,
+
     interventionType,
     record.params.produit_id,
     record.params.endroit_id,
   ]);
 
   return (
-    <CheckboxGrid>
+    <CheckboxGrid columns={4}>
       {questions.length > 0 ? (
-        questions.map((question) => (
-          <QuestionComponent
-            key={question.id}
-            question={question}
-            record={record}
+        record.params.intervention_type_id === 3 ? (
+          <DepannageComponent
             questionsValuesHandler={questionsValuesHandler}
-            childQuestionsHandler={setChildQuestionIds}
+            questions={questions}
           />
-        ))
+        ) : (
+          questions.map((question) => (
+            <QuestionComponent
+              key={question.id}
+              question={question}
+              record={record}
+              questionsValuesHandler={questionsValuesHandler}
+              childQuestionsHandler={setChildQuestionIds}
+            />
+          ))
+        )
       ) : (
         <div>Choissisez Type d'intervention et / ou equipment</div>
       )}

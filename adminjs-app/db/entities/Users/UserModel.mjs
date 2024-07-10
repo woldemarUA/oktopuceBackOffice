@@ -37,10 +37,7 @@ UsersModel.init(
       type: DataTypes.STRING(255),
       allowNull: false,
     },
-    email: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-    },
+
     addresse: {
       type: DataTypes.STRING(255),
       allowNull: false,

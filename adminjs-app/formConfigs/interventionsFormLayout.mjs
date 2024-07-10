@@ -14,29 +14,39 @@ const interventionsFormLayout = [
       sectionConfig,
       [
         [
-          '@H6',
-          { children: 'Informations générales', style: headingSectionConfig },
+          rowConfig,
+          [
+            [
+              '@H6',
+              {
+                children: 'Informations générales',
+                style: { ...headingSectionConfig, ...cellConfig },
+              },
+            ],
+
+            // ['homeBtn', cellConfig],
+          ],
         ],
         // Parametrage range
-
-        [
-          rowConfig,
-          [
-            ['site_id', cellConfig],
-            ['technicien_id', cellConfig],
-            ['client_id', cellConfig],
-          ],
-        ],
-        [
-          rowConfig,
-          [
-            ['intervention_type_id', { ...cellConfig, width: 2 / 3 }],
-            // ['empty', { component: 'EmptyBreak', ...cellConfig, width: 1 / 3 }],
-            ['intervention_date', { ...cellConfig, width: 1 / 3 }],
-          ],
-        ],
-
         [['parametrage']],
+
+        // [
+        //   rowConfig,
+        //   [
+        //     ['client_id', cellConfig],
+        //     ['site_id', cellConfig],
+        //     ['equipment_id', cellConfig],
+        //   ],
+        // ],
+        [
+          rowConfig,
+          [
+            ['technicien_id', cellConfig],
+            ['intervention_type_id', cellConfig],
+
+            ['intervention_date', cellConfig],
+          ],
+        ],
       ],
     ],
 

@@ -14,6 +14,7 @@ const ResistanceComponent = ({ parent, fetchAux, questionsValuesHandler }) => {
       questionsValuesHandler({
         id: fonctionGroupe.id,
         response: fonctionGroupeValue,
+        parent_id: 'resistance',
       });
     }
   }, [fonctionGroupeValue, auxQuestions]);

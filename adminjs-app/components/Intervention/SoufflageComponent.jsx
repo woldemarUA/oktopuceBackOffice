@@ -34,18 +34,25 @@ const SoufflageComponent = ({
 
   useEffect(() => {
     if (auxQuestions) {
-      questionsValuesHandler({ id: mode.id, response: modeOption });
+      questionsValuesHandler({
+        id: mode.id,
+        response: modeOption,
+        parent_id: 'soufflage',
+      });
       questionsValuesHandler({
         id: tempReleve.id,
         response: releveValue,
+        parent_id: 'soufflage',
       });
       questionsValuesHandler({
         id: tempReprise.id,
         response: repriseValue,
+        parent_id: 'soufflage',
       });
       questionsValuesHandler({
         id: soufflageDelta.id,
         response: soufDeltaValue,
+        parent_id: 'soufflage',
       });
     }
   }, [
@@ -63,18 +70,12 @@ const SoufflageComponent = ({
       repriseValue !== null &&
       repriseValue !== undefined
     ) {
-      setSoufDeltaValue(releveValue - repriseValue);
+      setSoufDeltaValue(Math.abs(releveValue - repriseValue));
     } else {
       setSoufDeltaValue(null);
     }
   }, [releveValue, repriseValue]);
 
-  // useEffect(() => {
-
-  //   setSoufDeltaValue(
-  //     releveValue && repriseValue ? releveValue - repriseValue : null
-  //   );
-  // }, [releveValue, repriseValue]);
   useEffect(() => {
     async function fetchQuestions() {
       try {

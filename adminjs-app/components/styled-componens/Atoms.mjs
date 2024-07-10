@@ -16,7 +16,8 @@ export const Button = styled.button`
   color: ${colors.white}; // Assuming you want the text color to contrast the background
   padding: 8px 16px; // Example padding, adjust as needed
   border: none; // Assuming no border is needed
-  border-radius: 4px; // Giving the button rounded corners
+  border-radius: ${(props) =>
+    props.radius || '4px'}; // Giving the button rounded corners
   cursor: pointer; // Changes the cursor to a pointer on hover
 
   &:hover {
@@ -29,23 +30,24 @@ export const Button = styled.button`
 `;
 export const Section = styled.section`
   //   background-color: #f0f0f0;
-  border: 2px solid #ccc;
+  border: ${(props) => props.borderW || '2px'} solid #ccc;
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
   ${space} ${layout} // Allows space and layout props from styled-system
 `;
 
-export const Heading = styled.h6`
-  color: green;
-  font-style: italic;
+export const Heading = styled.h4`
+  color: ${(props) => colors[props.color] || colors.white};
+  font-style: ${(props) => props.fontStyle || 'italic'};
   margin-bottom: 10px;
   ${space} ${layout} // Allows space and layout props from styled-system
 `;
 
 export const Row = styled.div`
   display: flex;
-  flex-direction: column; /* default mobile view */
+  flex-direction: ${(props) =>
+    props.direction || 'column'}; /* default mobile view */
   justify-content: space-between;
 
   @media (min-width: 768px) {
@@ -66,6 +68,7 @@ export const Cell = styled.div`
 
 export const CellFlex = styled.div`
   display: flex;
+  flex-direction: column; /* default mobile view */
   ${space} ${layout} // Allows space and layout props from styled-system
 `;
 

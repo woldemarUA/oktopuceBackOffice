@@ -21,6 +21,7 @@ const equipmentShowLayout = () => {
             rowConfig,
             [
               ['site_id', cellConfig],
+
               ['nfc_tag_id', cellConfig],
               ['parent_equipment_id', cellConfig],
               ['installation_date', cellConfig],

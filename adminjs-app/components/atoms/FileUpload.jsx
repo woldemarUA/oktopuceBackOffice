@@ -9,7 +9,7 @@ import {
   Box,
 } from '../styled-componens/Atoms.mjs';
 
-function FileUploader({ property, record, resource, onChange }) {
+function FileUploader({ property, resource, onChange }) {
   const [filePath, setFilePath] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
   const [errMsg, setErrMsg] = useState(null);

@@ -13,12 +13,7 @@ const convertQuestions = (arr) => {
   return Object.values(obj);
 };
 
-const AdditionalQuestionsComponent = ({
-  questions,
-  onChange,
-  property,
-  record,
-}) => {
+const AdditionalQuestionsComponent = ({ questions }) => {
   const questionItems = convertQuestions(questions);
   // console.log(questionItems);
   return (

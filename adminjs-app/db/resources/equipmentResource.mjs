@@ -52,10 +52,11 @@ export const EquipmentsResource = async () => {
       actions: {
         new: {
           layout: equipmentFormLayout,
-          // component: Components.EquipmentForm,
+          component: Components.EquipmentForm,
         },
         edit: {
           layout: equipmentFormLayout,
+          component: Components.EquipmentForm,
         },
         show: {
           component: Components.EquipmentShowComponent,
@@ -64,13 +65,29 @@ export const EquipmentsResource = async () => {
       },
       properties: {
         site_id: {
-          label: 'Last Name',
+          label: 'Site',
           position: 1,
-          isTitle: true,
         },
         parametrage: {
           components: {
             edit: Components.ProductSelect,
+          },
+          props: {
+            product: {
+              table: 'equipment_produit',
+              field: 'produit_id',
+              label: 'Sur quel produit est installé le puce?',
+            },
+            endroit: {
+              table: 'equipment_endroit',
+              field: 'endroit_id',
+              label: 'A quel endroit?',
+            },
+            equipment: {
+              table: 'equipment_types',
+              field: 'equipment_type_id',
+              label: "Type d'unité?",
+            },
           },
         },
 
@@ -114,6 +131,9 @@ export const EquipmentsResource = async () => {
             // isVisible: await EquipmentTypesModel.isFinalite(),
             label: 'Finalite(s)',
           },
+        },
+        serial_number: {
+          isTitle: true,
         },
 
         unite_exterieur_type_id: {

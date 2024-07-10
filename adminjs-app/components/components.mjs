@@ -74,6 +74,10 @@ const Components = {
     'SecuriteComponent',
     './Intervention/SecuriteComponent.jsx'
   ),
+  DepannageComponent: componentLoader.add(
+    'DepannageComponent',
+    './Intervention/DepannageComponent.jsx'
+  ),
   ResistanceComponent: componentLoader.add(
     'ResistanceComponent',
     './Intervention/ResistanceComponent.jsx'
@@ -110,11 +114,39 @@ const Components = {
     './atoms/ShowSignature.jsx'
   ),
   DateComp: componentLoader.add('DateComp', './atoms/DateComp.jsx'),
+  FileShow: componentLoader.add('FileShow', './atoms/FileShow.jsx'),
+  SelectCellFlex: componentLoader.add(
+    'SelectCellFlex',
+    './atoms/SelectCellFlex.jsx'
+  ),
   ShowSignature: componentLoader.add(
     'ShowSignature',
     './atoms/ShowSignature.jsx'
   ),
   EmptyBreak: componentLoader.add('EmptyBreak', './atoms/EmptyBreak.jsx'),
+  ListPropertySitesSelectComponent: componentLoader.add(
+    'ListPropertySitesSelectComponent',
+    './atoms/ListPropertySitesSelectComponent.jsx'
+  ),
+  ListPropertyEquipmentSelectComponent: componentLoader.add(
+    'ListPropertyEquipmentSelectComponent',
+    './atoms/ListPropertyEquipmentSelectComponent.jsx'
+  ),
+  GoBackComponent: componentLoader.add(
+    'GoBackComponent',
+    './atoms/GoBackComponent.jsx'
+  ),
+
+  DropDownComp: componentLoader.add('DropDownComp', './atoms/DropDownComp.jsx'),
+  ShowChildrenQuestions: componentLoader.add(
+    'ShowChildrenQuestions',
+    './atoms/ShowChildrenQuestions.jsx'
+  ),
+  AddFormWithFrame: componentLoader.add(
+    'AddFormWithFrame',
+    './atoms/AddFormWithFrame.jsx'
+  ),
+  // Login: componentLoader.override('Login', './atoms/Login.jsx'),
 };
 
 export { Components };

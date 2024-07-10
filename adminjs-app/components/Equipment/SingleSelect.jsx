@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Select } from '@adminjs/design-system';
-import { Label } from '@adminjs/design-system';
+import { Select, FormGroup, FormMessage, Label } from '@adminjs/design-system';
 
 const SingleSelect = ({ property, record, onChange }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [options, setOptions] = useState([]);
   const [selectedOptionValue, setSelectedOptionValue] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleChange = (selectedOption) => {
     setSelectedOptionValue(selectedOption);
@@ -48,12 +48,21 @@ const SingleSelect = ({ property, record, onChange }) => {
     fetchOptions();
   }, [property.props.tableName]);
 
-  //   console.log(record.params);
+  useEffect(() => {
+    if (record.params[property.name]) {
+      const filtered = options.filter((option) => {
+        return option.value === parseInt(record.params[property.name], 10);
+      });
+      setSelectedOptionValue(filtered);
+    }
+
+    setError(record.errors[property.name]);
+  }, [record]);
 
   return (
     <>
       {isVisible && (
-        <>
+        <FormGroup>
           <Label htmlFor={property.name}>{property.props.label}</Label>
           <Select
             options={options}
@@ -61,7 +70,8 @@ const SingleSelect = ({ property, record, onChange }) => {
             name={property.name}
             value={selectedOptionValue}
           />
-        </>
+          <FormMessage color='red'>{error && error.message}</FormMessage>
+        </FormGroup>
       )}
     </>
   );

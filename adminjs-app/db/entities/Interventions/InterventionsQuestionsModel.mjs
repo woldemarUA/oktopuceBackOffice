@@ -8,7 +8,7 @@ export class InterventionsQuestionsModel extends Model {
       where: {
         intervention_id,
       },
-      attributes: ['id', 'response'],
+      attributes: ['id', 'response', 'question_type_id', 'parent_id'],
       include: [
         {
           model: InterventionsQuestionTypesModel,
@@ -21,8 +21,10 @@ export class InterventionsQuestionsModel extends Model {
     return res.map((q) => ({
       id: q.dataValues.id,
       response: q.dataValues.response,
+      question_type_id: q.dataValues.question_type_id,
       name: q.dataValues.question_name.dataValues.name,
       type: q.dataValues.question_name.dataValues.type,
+      parent: q.dataValues.parent_id,
     }));
   }
 }
@@ -47,6 +49,19 @@ InterventionsQuestionsModel.init(
       type: DataTypes.STRING(255),
       allowNull: false,
     },
+    parent_id: {
+      type: DataTypes.ENUM(
+        'soufflage',
+        'pompeEau',
+        'pression',
+        'etancheite',
+        'securite',
+        'resistance',
+        'depannage'
+      ),
+      allowNull: true,
+    },
+
     intervention_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

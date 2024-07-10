@@ -38,7 +38,6 @@ const GasParamsComponent = ({ property, record, onChange }) => {
   };
 
   const handleInputValue = (gas_weight) => {
-    console.log(gas_weight);
     setPoidGaz(parseFloat(gas_weight));
     onChange('gas_weight', parseFloat(gas_weight));
   };

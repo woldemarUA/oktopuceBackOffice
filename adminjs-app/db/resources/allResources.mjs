@@ -26,6 +26,7 @@ import {
 import {
   UserTypesResource,
   UsersResource,
+
   // creatUserResourceOptions,
 } from './usersResource.mjs';
 
@@ -36,7 +37,7 @@ import { FilesResource } from './filesResource.mjs';
 const resourcesAll = async () => {
   return [
     ClientTypesResource(),
-    ClientsResource(),
+    await ClientsResource(),
     EquipmentBrandsResource(),
     EquipmentExtTypesResource(),
     EquipmentIntTypesResource(),
@@ -56,6 +57,7 @@ const resourcesAll = async () => {
     InterventionsQuestionTypesResource(),
     UserTypesResource(),
     UsersResource(),
+
     await FilesResource(),
     // creatUserResourceOptions(1),
   ];

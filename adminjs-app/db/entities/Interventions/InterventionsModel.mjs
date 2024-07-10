@@ -20,6 +20,14 @@ InterventionsModel.init(
         key: 'id',
       },
     },
+    equipment_id: {
+      type: DataTypes.BIGINT.UNSIGNED,
+      allowNull: false,
+      references: {
+        model: 'equipments',
+        key: 'id',
+      },
+    },
     technicien_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

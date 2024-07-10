@@ -1,7 +1,18 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model, where } from 'sequelize';
 import sequelize from '../../db_connector.mjs';
 
-export class SitesModel extends Model {}
+export class SitesModel extends Model {
+  static async getSitesOptions(client_id = null) {
+    const queryOptions = { attributes: [['id', 'value'], 'name'] };
+
+    if (client_id) {
+      queryOptions.where = { client_id };
+    }
+    const response = await this.findAll(queryOptions);
+
+    return response.map((res) => ({ ...res.dataValues, link: this.tableName }));
+  }
+}
 
 SitesModel.init(
   {

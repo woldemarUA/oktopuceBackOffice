@@ -23,10 +23,15 @@ const SecuriteComponent = ({
 
   useEffect(() => {
     if (auxQuestions) {
-      questionsValuesHandler({ id: mode.id, response: modeOption });
+      questionsValuesHandler({
+        id: mode.id,
+        response: modeOption,
+        parent_id: 'securite',
+      });
       questionsValuesHandler({
         id: fonctionGroupe.id,
         response: fonctionGroupeValue,
+        parent_id: 'securite',
       });
     }
   }, [modeOption, fonctionGroupeValue, auxQuestions]);

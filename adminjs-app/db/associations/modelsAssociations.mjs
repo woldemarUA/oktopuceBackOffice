@@ -13,6 +13,10 @@ import { SitesModel } from '../entities/Sites/SitesModel.mjs';
 
 import { FilesModel } from '../entities/Utils/FileModel.mjs';
 import { InterventionsModel } from '../entities/Interventions/InterventionsModel.mjs';
+import { EquipmentsModel } from '../entities/Equipments/EquipmentsModel.mjs';
+
+import { UsersModel } from '../entities/Users/UserModel.mjs';
+import { AuthDetailsModel } from '../entities/Users/AuthModel.mjs';
 
 // Define the relationship
 Clients.belongsTo(ClientTypes, {
@@ -117,3 +121,13 @@ FilesModel.belongsTo(InterventionsModel, {
 InterventionsModel.hasMany(FilesModel, {
   foreignKey: 'intervention_id',
 });
+
+InterventionsModel.belongsTo(EquipmentsModel, {
+  foreignKey: 'equipment_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+
+// Set up the relationship
+UsersModel.hasOne(AuthDetailsModel, { foreignKey: 'user_id' });
+AuthDetailsModel.belongsTo(UsersModel, { foreignKey: 'user_id' });

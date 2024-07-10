@@ -26,6 +26,24 @@ export class InterventionsDepQuestionsModel extends Model {
     }));
   }
 
+  static async getParentByChildId(child_q_id) {
+    const res = await this.findOne({
+      where: { child_q_id },
+      include: [
+        {
+          model: InterventionsQuestionTypesModel,
+          as: 'ParentQuestion',
+          attributes: ['id', 'name'],
+        },
+      ],
+    });
+    return res.dataValues.ParentQuestion.dataValues;
+    // return res.map((r) => ({
+    //   options: r.dataValues.options,
+    //   ...r.dataValues.ParentQuestion.dataValues,
+    // }));
+  }
+
   static async getParentAll() {
     const res = await this.findAll({
       attributes: ['parent_q_id'],
