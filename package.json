@@ -5,9 +5,10 @@
     "description": "",
     "main": "server.mjs",
     "scripts": {
+        "clean": "rm -rf .adminjs",
         "start": "node loader.js",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "nodemon server.mjs"
+        "dev": "nodemon --exec 'npm run clean && node server.mjs' "
     },
     "keywords": [
         "auth",

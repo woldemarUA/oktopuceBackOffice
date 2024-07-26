@@ -24,13 +24,6 @@ export const getQuestions = async (intervention_id) => {
     }
   }
 
-  // questions.forEach((q, i) => {
-  //   if (q.parent) {
-  //     // console.log(q, i);
-  //     questions.splice(i, 1);
-  //   }
-  // });
-
   const reply = questions.filter((q) => !q.parent);
 
   return reply;

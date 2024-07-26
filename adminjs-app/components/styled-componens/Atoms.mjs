@@ -13,20 +13,19 @@ export const colors = {
 
 export const Button = styled.button`
   background-color: ${(props) => colors[props.bgColor] || 'none'};
-  color: ${colors.white}; // Assuming you want the text color to contrast the background
-  padding: 8px 16px; // Example padding, adjust as needed
-  border: none; // Assuming no border is needed
+  color: ${colors.white}; /* Assuming you want the text color to contrast the background */
+  padding: 8px 16px; /* Example padding, adjust as needed */
+  border: none; /* Assuming no border is needed */
   border-radius: ${(props) =>
-    props.radius || '4px'}; // Giving the button rounded corners
-  cursor: pointer; // Changes the cursor to a pointer on hover
+    props.radius || '4px'}; /* Giving the button rounded corners */
+  cursor: pointer; /* Changes the cursor to a pointer on hover */
 
   &:hover {
-    background-color: ${(props) =>
-      colors[props.hoverColor] ||
-      colors.approval}; // Optional: change color on hover
+    background-color: ${(props) => colors[props.hoverColor] || colors.approval};
   }
 
-  ${space} ${layout}
+  ${space}
+  ${layout}
 `;
 export const Section = styled.section`
   //   background-color: #f0f0f0;

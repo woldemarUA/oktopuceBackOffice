@@ -9,6 +9,7 @@ const Components = {
     'DashboardCard',
     './Dashboard/Dashboard.jsx'
   ),
+
   EquipmentForm: componentLoader.add(
     'EquipmentForm',
     './Equipment/EquipmentForm.jsx'
@@ -148,5 +149,7 @@ const Components = {
   ),
   // Login: componentLoader.override('Login', './atoms/Login.jsx'),
 };
+
+// console.log('Components registered:', Components);
 
 export { Components };

@@ -12,7 +12,6 @@ import {
 import { trueFalseConverter } from '../Intervention/InterventionQuestionsShow';
 
 const ShowChildrenQuestions = ({ question }) => {
-  console.log(question);
   return (
     <Section
       mt={3}

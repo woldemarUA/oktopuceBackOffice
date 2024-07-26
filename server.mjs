@@ -16,9 +16,14 @@ import frenchTranslations from './adminjs-app/utilities/translationFR.json' asse
 import { componentLoader } from './adminjs-app/setUp/componentLoader.mjs';
 
 import { Components } from './adminjs-app/components/components.mjs';
-import { light, dark, noSidebar } from '@adminjs/themes';
+import { light, dark } from '@adminjs/themes';
 
 import { authenticate } from './adminjs-app/auth/authActions.mjs';
+import { dashboardHandler } from './adminjs-app/components/actions/dashboardActions.mjs';
+
+// mobile router import
+
+import { router as mobileRouter } from './mobile/routes/mobileRouter.mjs';
 
 config();
 
@@ -29,7 +34,6 @@ const SECRET_KEY = 'oktopuce-secret';
 
 app.use(express.static(path.join(__dirname, './public')));
 app.use(cors());
-app.use(bodyParser.json());
 
 // Multer configuration
 const storage = multer.diskStorage({
@@ -50,6 +54,7 @@ app.post('/upload', upload.single('myfile'), (req, res) => {
   const url = req.file.path;
   res.json({ path: url.replace('public/', '') });
 });
+app.use('/mobile', mobileRouter);
 
 AdminJS.registerAdapter({
   Resource: AdminJSSequelize.Resource,
@@ -77,11 +82,12 @@ async function run() {
 
   const admin = new AdminJS({
     ...adminOptions,
-    componentLoader,
-    rootPath: '/',
     dashboard: {
       component: Components.DashboardCard,
+      handler: dashboardHandler,
     },
+    componentLoader,
+    rootPath: '/',
 
     branding: {
       companyName: 'OKTOPUCE',
@@ -90,7 +96,7 @@ async function run() {
       withMadeWithLove: false,
     },
     defaultTheme: 'dark',
-    availableThemes: [light, dark, noSidebar],
+    availableThemes: [light, dark],
     locale: {
       debug: false,
       language: 'fr',
@@ -134,7 +140,7 @@ async function run() {
   );
 
   app.use(admin.options.rootPath, adminRouter);
-
+  app.use(bodyParser.json());
   if (typeof PhusionPassenger !== 'undefined') {
     server.listen('passenger', () => {
       console.log('Server running with Phusion Passenger');
