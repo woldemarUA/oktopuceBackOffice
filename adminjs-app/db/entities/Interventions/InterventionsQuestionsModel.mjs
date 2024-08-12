@@ -24,7 +24,7 @@ export class InterventionsQuestionsModel extends Model {
       question_type_id: q.dataValues.question_type_id,
       name: q.dataValues.question_name.dataValues.name,
       type: q.dataValues.question_name.dataValues.type,
-      parent: q.dataValues.parent_id,
+      // parent: q.dataValues.parent_id,
     }));
   }
 }
